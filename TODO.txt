@@ -15,3 +15,5 @@ PREREQUIS:
 
 LIENS UTILES:
 - Sheets API (Pour créer le Google Sheets) : https://developers.google.com/sheets/api - https://developers.google.com/sheets/api/quickstart/php (Utilisation de l'API)
+- PHP The Right Way (Section "Servers and Deployment" > "Building Your Application") + le reste : https://www.google.com/url?q=https://phptherightway.com/&sa=D&ust=1611945549875000&usg=AOvVaw1VwYK0BBwqFKQkx7GVm3B2
+- Design Patterns : https://www.google.com/url?q=https://phptherightway.com/&sa=D&ust=1611945549875000&usg=AOvVaw1VwYK0BBwqFKQkx7GVm3B2
