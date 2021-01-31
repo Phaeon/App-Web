@@ -1,0 +1,67 @@
+body 
+{
+	text-align : center;
+}
+
+div 
+{
+	margin : 0% 12.5% 2em;
+	width : 75%;
+	text-align : center;
+}
+
+table 
+{
+	width : 100%;
+	text-align : center;
+	border-collapse : collapse;
+}
+
+tr.match
+{
+	width : 100%
+}
+td.match
+{
+	font-size : 1.5em;
+	font-weight : bold;
+	line-height : 1.5em;
+	text-align : center;
+	border : solid;
+	border-color :  #f7f7ed;
+	background-color : #eeeee8;
+	width : 33%;
+}
+
+tr.convocation
+{
+	width : 100%;
+}
+td.convocation
+{
+	font-size : 2em;
+	text-align : center;
+	border : solid;
+}
+
+#barre
+{
+	background :  #dadad2;
+	border-radius : 10px;
+	border : solid;
+	border-color : grey;
+	padding : 10px;
+}
+
+#titre
+{
+	font-size : 3em;
+	font-weight : bold;
+	text-decoration : underline;
+	margin : 0 0 0.5em
+}
+
+#login
+{
+	text-align : right;
+}
