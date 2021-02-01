@@ -17,20 +17,88 @@ table
 	border-collapse : collapse;
 }
 
-tr.match
+table.match
 {
-	width : 100%
+	border : solid;
+	border-color :  #f7f7ed;
+	background-color : #d8d8d8;
 }
-td.match
+
+tr.match
 {
 	font-size : 1.5em;
 	font-weight : bold;
 	line-height : 1.5em;
 	text-align : center;
-	border : solid;
+	width : 100%;
+}
+
+td.match-date
+{
+	border-right-style : solid;
 	border-color :  #f7f7ed;
-	background-color : #eeeee8;
-	width : 33%;
+	width : 32%;
+}
+td.match_date_centre
+{
+	border-right-style : solid;
+	border-color :  #f7f7ed;
+	background-color : #eeeeee;
+	width : 32%;
+}
+
+td.match
+{
+	width : 16%;
+}
+td.match_centre
+{
+	background-color : #eeeeee;
+	width : 16%;
+}
+
+td.match-droit
+{
+	border-right-style : solid;
+	border-color :  #f7f7ed;
+	width : 16%;
+}
+td.match_droit_centre
+{
+	border-right-style : solid;
+	border-color :  #f7f7ed;
+	background-color : #eeeeee;
+	width : 16%;
+}
+
+td.tiret
+{
+	width : 1%
+}
+td.tiret_centre
+{
+	background-color : #eeeeee;
+	width : 1%
+}
+
+
+td.bouton_arriere
+{
+	cursor : pointer;
+	font-size : 0.75em;
+	border-right-style : solid;
+	border-color :  #f7f7ed;
+	background-color : #9b9b9b;
+	width : 2%;
+}
+td.bouton_avant
+{
+	cursor : pointer;
+	font-size : 0.75em;
+	border-right-style : solid;
+	border-color :  #f7f7ed;
+	background-color : #9b9b9b;
+	width : 2%;
 }
 
 tr.convocation
@@ -39,9 +107,21 @@ tr.convocation
 }
 td.convocation
 {
-	font-size : 2em;
+	font-size : 1.5em;
 	text-align : center;
 	border : solid;
+}
+td.image
+{
+	font-size : 1.5em;
+	text-align : center;
+	border : solid;
+	width : 8%;
+}
+
+img.pdf
+{
+	width : 60%;
 }
 
 #barre
@@ -55,7 +135,7 @@ td.convocation
 
 #titre
 {
-	font-size : 3em;
+	font-size : 2.5em;
 	font-weight : bold;
 	text-decoration : underline;
 	margin : 0 0 0.5em
@@ -65,3 +145,5 @@ td.convocation
 {
 	text-align : right;
 }
+
+	

@@ -4,8 +4,10 @@
 	<meta charset="utf-8">
 	<title>Titre de la page</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<script src="script.js"></script>
+
+	<script src="script.js" defer></script>
 </head>
+
 <body>
 		<div id="barre">
 		<table>
@@ -27,34 +29,48 @@
 		</div>
 
 		<div>
-		<table>
+		<table class="match">
 			<tr class="match">
-				<td class="match">
-					03-01-2021<br>
-					Cholet - Trélazé<br>
-					2 - 1
-				</td>
-				
-				<td class="match">
-					15-01-2021<br>
-					Bouchemaine - Les Ponts-de-Cé<br>
-					0 - 0
-				</td>
-		
-				<td class="match">
-					03-01-2021<br>
-					Ecouflant - Candé<br>
-					0 - 3
-				</td>
+				<td class="bouton_arriere" rowspan="3"><<</td>
+				<td class="match-date" colspan="3">03-01-2021</td>
+				<td class="match_date_centre" colspan="3">15-01-2021</td>
+				<td class="match-date" colspan="3">20-02-2021</td>
+				<td class="bouton_avant" rowspan="3">>></td>
+			</tr>
+
+			<tr class="match">
+				<td class="match">Cholet</td>
+				<td class="tiret"></td>
+				<td class="match-droit">Trélazé</td>
+
+				<td class="match_centre">Bouchemaine</td>
+				<td class="tiret_centre"></td>
+				<td class="match_droit_centre">Saint-Martin</td>
+
+				<td class="match">Ecouflant</td>
+				<td class="tiret"></td>
+				<td class="match-droit">Candé</td>
+			</tr>
+
+			<tr class="match">
+				<td class="match">2</td>
+				<td class="tiret">-</td>
+				<td class="match-droit">1</td>
+
+				<td class="match_centre">0</td>
+				<td class="tiret_centre">-</td>
+				<td class="match_droit_centre">0</td>
+
+				<td class="match">0</td>
+				<td class="tiret">-</td>
+				<td class="match-droit">3</td>
 			</tr>
 		</table>
 		</div>
 
-		<div id="menu">
+		<div>
 
-		<p id="titre">
-			CONVOCATIONS
-		</p>		
+		<p id="titre">CONVOCATIONS</p>		
 
 		<table>
 			<tr class="convocation">
@@ -64,8 +80,8 @@
 				<td class="convocation">
 					Coupe régionale - Martigné VS Segré
 				</td>
-				<td class="convocation">
-					<img src="pdf.png" height="100" width="75">
+				<td class="image">
+					<img class="pdf" src="pdf.png">
 				</td>
 			</tr>
 			<tr class="convocation">
@@ -75,8 +91,8 @@
 				<td class="convocation">
 					Coupe de France - Angers VS Saumur
 				</td>
-				<td class="convocation">
-					<img src="pdf.png" height="100" width="75">
+				<td class="image">
+					<img class="pdf" src="pdf.png">
 				</td>
 			</tr>
 			<tr class="convocation">
@@ -84,10 +100,10 @@
 					26-06-2021
 				</td>
 				<td class="convocation">
-					Coupe départemental - Avrillé VS Briollay
+					Coupe départementale - Avrillé VS Briollay
 				</td>
-				<td class="convocation">
-					<img src="pdf.png" height="100" width="75">
+				<td class="image">
+					<img class="pdf" src="pdf.png">
 				</td>
 			</tr>
 		</table>
