@@ -5,7 +5,7 @@
 	<title>Titre de la page</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 
-	<script src="script.js" defer></script>
+	<script src="match.js" defer></script>
 </head>
 
 <body>
@@ -16,12 +16,12 @@
 				<td>
 					<form id="login">
 						<label for="user">Identifiant : </label>
-						<input type="text" name="user">
+						<input class="login" type="text" name="user">
 
 						<label for="password">Mot de passe : </label>
-						<input type="password" name="password">
+						<input class="login" type="password" name="password">
 
-						<input type="submit" value="Connexion">
+						<input class="login" type="submit" value="Connexion">
 					</form>
 				</td>
 			</tr>
@@ -68,7 +68,7 @@
 		</table>
 		</div>
 
-		<div>
+		<div id="page">
 
 		<p id="titre">CONVOCATIONS</p>		
 

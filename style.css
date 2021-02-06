@@ -17,6 +17,119 @@ table
 	border-collapse : collapse;
 }
 
+form
+{
+	text-align : left;
+	font-size : 1.25em;
+}
+
+input,select
+{
+	margin : 0% 0% 2em;
+	font-size : 1em;
+}
+
+/*** Barre de connexion ***/
+
+td.barre
+{
+	text-align : left;
+}
+
+input.login
+{
+	margin : 0;
+	font-size : 0.75em;
+}
+
+#barre
+{
+	background :  #dadad2;
+	border-radius : 10px;
+	border : solid;
+	border-color : grey;
+	padding : 10px;
+}
+
+#login
+{
+	text-align : right;
+}
+
+/*********************/
+
+
+
+/*** Barre d'onglets ***/
+
+table.onglets
+{
+	border : solid;
+	border-color :  #f7f7ed;
+	background-color : #d8d8d8;
+}
+
+tr.onglets
+{
+	font-size : 1.5em;
+	font-weight : bold;
+	line-height : 1.5em;
+	text-align : center;
+	width : 100%;
+}
+
+td.onglets
+{
+	width : 5%;
+}
+
+td.accueil
+{
+	border : solid;
+	border-color :  #f7f7ed;
+	background-color : #9b9b9b;
+	width : 16%;
+	cursor : pointer;
+}
+
+td.convocations
+{
+	border : solid;
+	border-color :  #f7f7ed;
+	width : 16%;
+	cursor : pointer;
+}
+
+td.absences
+{
+	border : solid;
+	border-color :  #f7f7ed;
+	width : 16%;
+	cursor : pointer;
+}
+
+td.calendrier
+{
+	border : solid;
+	border-color :  #f7f7ed;
+	width : 16%;
+	cursor : pointer;
+}
+
+td.effectif
+{
+	border : solid;
+	border-color :  #f7f7ed;
+	width : 16%;
+	cursor : pointer;
+}
+
+/********************/
+
+
+
+/*** Affichage des matchs ***/
+
 table.match
 {
 	border : solid;
@@ -101,6 +214,20 @@ td.bouton_avant
 	width : 2%;
 }
 
+/********************/
+
+
+
+/*** Page d'accueil ***/
+
+#titre
+{
+	font-size : 2.5em;
+	font-weight : bold;
+	text-decoration : underline;
+	margin : 0 0 0.5em
+}
+
 tr.convocation
 {
 	width : 100%;
@@ -124,26 +251,5 @@ img.pdf
 	width : 60%;
 }
 
-#barre
-{
-	background :  #dadad2;
-	border-radius : 10px;
-	border : solid;
-	border-color : grey;
-	padding : 10px;
-}
-
-#titre
-{
-	font-size : 2.5em;
-	font-weight : bold;
-	text-decoration : underline;
-	margin : 0 0 0.5em
-}
-
-#login
-{
-	text-align : right;
-}
-
+/*********************/
 	
