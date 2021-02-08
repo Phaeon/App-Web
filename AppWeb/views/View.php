@@ -1,6 +1,6 @@
 <?php
 
-class Vue
+class View
 {
 
     // Nom du fichier associé à la vue
@@ -16,7 +16,7 @@ class Vue
     }
 
     // Génère et affiche la vue
-    public function generer($data)
+    public function generate($data)
     {
         $content = $this->generateFile($this->file, $data);
         $view = $this->generateFile('views/Common.php', array(

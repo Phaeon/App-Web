@@ -1,5 +1,6 @@
-CREATE DATABASE convocations IF NOT EXISTS;
+CREATE DATABASE IF NOT EXISTS convocations;
 
+DROP TABLE IF EXISTS Utilisateurs;
 DROP TABLE IF EXISTS Effectifs;
 DROP TABLE IF EXISTS Sites;
 DROP TABLE IF EXISTS Competitions;
@@ -9,18 +10,33 @@ DROP TABLE IF EXISTS Matchs;
 DROP TABLE IF EXISTS Equipes;
 DROP TABLE IF EXISTS Absences;
 
+CREATE TABLE Utilisateurs (
+    login VARCHAR(50),
+    mdp VARCHAR(100),
+    role VARCHAR(10) CHECK (role IN ('Secrétaire', 'Entraîneur')),
+    PRIMARY KEY (login, mdp, role)
+);
+
+CREATE TABLE Equipes (
+    nom_equipe VARCHAR(20),
+    categorie VARCHAR(20),
+    effectif INTEGER NOT NULL,
+    PRIMARY KEY (nom_equipe, categorie)
+);
+
 CREATE TABLE Effectifs (
     nom VARCHAR(30),
     prenom VARCHAR(30),
     type_licence VARCHAR(20) NOT NULL CHECK (type_licence IN ('Libre', 'Futsal', 'Entreprise', 'Loisir')),
-    PRIMARY KEY (nom, prenom)
+    nom_equipe VARCHAR(20), 
+    PRIMARY KEY (nom, prenom),
+    FOREIGN KEY (nom_equipe) REFERENCES Equipes(nom_equipe)
 );
 
 
 CREATE TABLE Competitions (
     nom_compet VARCHAR(40),
-    -- Permet de définir l'importance de la compétition par un numéro quelconque (facultatif)
-    importance INTEGER CHECK (importance >= 0),
+    importance INTEGER CHECK (importance > 0),
     PRIMARY KEY (nom_compet)
 );
 
@@ -42,24 +58,16 @@ CREATE TABLE NonConvoques (
 );
 
 
-CREATE TABLE Equipes (
-    nom_equipe VARCHAR(20),
-    categorie VARCHAR(20),
-    effectif INTEGER NOT NULL,
-    PRIMARY KEY (nom_equipe, categorie)
-);
-
-
 CREATE TABLE Matchs (
+    date_m DATE,
     categorie VARCHAR(20),
     competition VARCHAR(20),
     equipe VARCHAR(20),
     equipe_adv VARCHAR(20),
-    date_m DATE,
     heure TIME,
     site VARCHAR(50) NOT NULL,
     terrain VARCHAR(50) NOT NULL,
-    PRIMARY KEY (categorie, competition, equipe, equipe_adv, date_m, heure),
+    PRIMARY KEY (date_m, categorie, competition, equipe, equipe_adv, heure),
     FOREIGN KEY (competition) REFERENCES Competitions(nom_compet),
     FOREIGN KEY (categorie, equipe) REFERENCES Equipes(nom_equipe, categorie),
     FOREIGN KEY (categorie, equipe_adv) REFERENCES Equipes(nom_equipe, categorie),
@@ -68,8 +76,8 @@ CREATE TABLE Matchs (
 
 
 CREATE TABLE Convocations (
-    categorie VARCHAR(20),
     date_m DATE,
+    categorie VARCHAR(20),
     competition VARCHAR(20),
     equipe_adv VARCHAR(20),
     site VARCHAR(50) NOT NULL,
@@ -77,7 +85,7 @@ CREATE TABLE Convocations (
     heure TIME,
     rdv VARCHAR(100),
     equipe VARCHAR(20),
-    PRIMARY KEY (date_m, competition, equipe_adv, heure, equipe),
+    PRIMARY KEY (date_m, categorie, competition, equipe_adv, heure, equipe),
     FOREIGN KEY (categorie, competition, equipe, equipe_adv, date_m, heure) REFERENCES Matchs(categorie, competition, equipe, equipe_adv, date_m, heure),
     FOREIGN KEY (site, terrain) REFERENCES Sites(nom_site, terrain)
 );
@@ -91,5 +99,5 @@ CREATE TABLE Absences (
     raison_court CHAR(1) NOT NULL CHECK (raison_court IN ('A', 'B', 'N', 'S')),
     PRIMARY KEY (nom, prenom, date_m),
     FOREIGN KEY (nom, prenom) REFERENCES Effectifs(nom, prenom),
-    FOREIGN KEY (date_m) REFERENCES Convocations(date_m)
+    FOREIGN KEY (date_m) REFERENCES Matchs(date_m)
 );

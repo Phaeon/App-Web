@@ -2,28 +2,34 @@
 <html lang="fr">
 <head>
 	<meta charset="utf-8">
-	<title>Club XXX</title>
+	<title>Titre de la page</title>
 	<link rel="stylesheet" type="text/css" href="views/stylesheets/style.css">
 
 	<script src="views/scripts_js/match.js" defer></script>
+	<script src="views/scripts_js/onglets.js" defer></script>
 </head>
 
 <body>
 		<div id="barre">
 		<table>
 			<tr>
-				<td>Club de Sport</td>
-				<td>
-					<form name="login" method="post" id="login">
-						<label for="user">Identifiant : </label>
-						<input class="login" type="text" name="user">
+				<td class="barre">Club de Sport</td>
+                <td><form id="login" method="post"><button name="deco" class="login" type="submit" value="deco">Déconnexion</button></form></td>
+			</tr>
+		</table>
+		</div>
 
-						<label for="password">Mot de passe : </label>
-						<input class="login" type="password" name="password">
 
-						<input class="login" type="submit" value="Connexion">
-					</form>
-				</td>
+		<div>
+		<table class="onglets">
+			<tr class="onglets">
+				<td class="onglets"></td>
+				<td class="accueil">Accueil</td>
+				<td class="convocations">Convocations</td>
+				<td class="absences">Absences</td>
+				<td class="calendrier">Calendrier</td>
+				<td class="effectif">Effectif</td>
+				<td class="onglets"></td>
 			</tr>
 		</table>
 		</div>
@@ -81,7 +87,7 @@
 					Coupe régionale - Martigné VS Segré
 				</td>
 				<td class="image">
-					<img class="pdf" src="images/pdf.png">
+					<img class="pdf" src="pdf.png">
 				</td>
 			</tr>
 			<tr class="convocation">
@@ -92,7 +98,7 @@
 					Coupe de France - Angers VS Saumur
 				</td>
 				<td class="image">
-					<img class="pdf" src="images/pdf.png">
+					<img class="pdf" src="pdf.png">
 				</td>
 			</tr>
 			<tr class="convocation">
@@ -103,7 +109,7 @@
 					Coupe départementale - Avrillé VS Briollay
 				</td>
 				<td class="image">
-					<img class="pdf" src="images/pdf.png">
+					<img class="pdf" src="pdf.png">
 				</td>
 			</tr>
 		</table>
