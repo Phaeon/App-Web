@@ -37,7 +37,8 @@ Pour ne pas sumberger ce README avec du texte, voici une petite vidéo explicati
 
 La dernière version disponible : **1.0**
 
-### Auteurs
+
+### Auteurs
 
 > Les auteurs de ce projet sont **Jérôme URCUN** et **Jack HOGG**, de l'Université d'Angers
 >
