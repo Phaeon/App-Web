@@ -25,13 +25,16 @@
 			<tr class="onglets">
 				<td class="onglets"></td>
 				<td class="accueil">Accueil</td>
-				<td class="convocations">Convocations</td>
-				<td class="absences">Absences</td>
 				<?php
+					
+					echo "<td class=\"convocations\">Convocations</td>";
+					echo "<td class=\"absences\">Absences</td>";
+					
 					if ($_SESSION['role'] == "secr") {
 						echo "<td class=\"calendrier\">Calendrier</td>";
-						echo "<td class=\"effectif\">Effectif</td>";
 					}
+					echo "<td class=\"effectif\">Effectif</td>";
+					
 				?>
 				<td class="onglets"></td>
 			</tr>
