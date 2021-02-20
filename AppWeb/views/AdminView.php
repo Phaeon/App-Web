@@ -27,8 +27,12 @@
 				<td class="accueil">Accueil</td>
 				<td class="convocations">Convocations</td>
 				<td class="absences">Absences</td>
-				<td class="calendrier">Calendrier</td>
-				<td class="effectif">Effectif</td>
+				<?php
+					if ($_SESSION['role'] == "secr") {
+						echo "<td class=\"calendrier\">Calendrier</td>";
+						echo "<td class=\"effectif\">Effectif</td>";
+					}
+				?>
 				<td class="onglets"></td>
 			</tr>
 		</table>
