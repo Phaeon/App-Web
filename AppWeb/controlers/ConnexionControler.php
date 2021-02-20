@@ -20,7 +20,9 @@ class ConnexionControler {
         $connEtablie = $this->_conn->checkConnexion($login, $mdp);
         // Si la connexion est établie, charger la page
         if ($connEtablie) {
+            $role = $this->_conn->getRole($login);
             $_SESSION['admin'] = $login;
+            $_SESSION['role'] = $role;
             $this->admin();
         }else{
             echo "<script>alert('Votre identifiant ou mot de passe est incorrect');</script>";
