@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 require_once 'models/PlayerModel.php';
 
 class PlayerControler {
@@ -44,12 +42,13 @@ class PlayerControler {
         $this->_player->removeAbsentPlayer($nom, $prenom, $dateMatch);
     }
     
-    public function newPlayer($nom, $prenom, $licence='Libre', $equipe='') {        
+    public function newPlayer($nom, $prenom, $licence, $equipe, $categorie) {        
         $nom = ucfirst(strtolower($nom));
         $prenom = ucfirst(strtolower($prenom));
         $equipe = strtoupper($equipe);
+	$categorie = strtoupper($categorie);
         
-        $this->_player->newPlayer($nom, $prenom, $licence, $equipe);
+        $this->_player->newPlayer($nom, $prenom, $licence, $equipe, $categorie);
     }
     
     public function removePlayer($nom, $prenom) {
@@ -58,8 +57,25 @@ class PlayerControler {
         
         $this->_player->removePlayer($nom, $prenom);
     }
+
+    public function changePlayer($nom, $prenom,$equipe,$categorie) {
+        $nom = ucfirst(strtolower($nom));
+        $prenom = ucfirst(strtolower($prenom));
+        
+        $this->_player->changePlayer($nom, $prenom,$equipe,$categorie);
+    }
   
-    
+    public function getPlayer() {
+	return $this->_player->getPlayer();
+    }
+
+    public function getTeam() {
+	return $this->_player->getTeam();
+    }
+
+    public function getAbsent() {
+	return $this->_player->getAbsent();
+    }
 }
 
 ?>

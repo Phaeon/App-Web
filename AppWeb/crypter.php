@@ -48,8 +48,8 @@ else // On n'a pas encore rempli le formulaire
         Mot de passe : <input type="text" name="pass"><br /><br />
         
         <select name="role">
-            <option value="secr">Secrétaire</option>
-            <option value="entr">Entraîneur</option>
+            <option value="Secrétaire">Secrétaire</option>
+            <option value="Entraîneur">Entraîneur</option>
         </select>
     
         <input type="submit" value="Crypter !">

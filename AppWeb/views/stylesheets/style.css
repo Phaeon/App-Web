@@ -25,7 +25,7 @@ form
 
 input,select
 {
-	margin : 0% 0% 2em;
+	margin : 0% 0% 1.5em;
 	font-size : 1em;
 }
 
@@ -252,4 +252,20 @@ img.pdf
 }
 
 /*********************/
-	
+
+
+
+/*** Page des effectifs ***/
+
+th.effectifs
+{
+	font-size : 1.5em;
+	text-align : center;
+	border : solid;
+}
+td.effectifs
+{
+	font-size : 1.25em;
+	text-align : center;
+	border : solid;
+}

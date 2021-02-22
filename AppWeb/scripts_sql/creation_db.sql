@@ -1,14 +1,16 @@
 CREATE DATABASE IF NOT EXISTS convocations;
 
-DROP TABLE IF EXISTS Utilisateurs;
-DROP TABLE IF EXISTS Effectifs;
-DROP TABLE IF EXISTS Sites;
-DROP TABLE IF EXISTS Competitions;
-DROP TABLE IF EXISTS NonConvoques;
+DROP TABLE IF EXISTS Absences;
 DROP TABLE IF EXISTS Convocations;
 DROP TABLE IF EXISTS Matchs;
+DROP TABLE IF EXISTS NonConvoques;
+DROP TABLE IF EXISTS Effectifs;
+
+DROP TABLE IF EXISTS Sites;
+DROP TABLE IF EXISTS Competitions;
 DROP TABLE IF EXISTS Equipes;
-DROP TABLE IF EXISTS Absences;
+DROP TABLE IF EXISTS Utilisateurs;
+
 
 CREATE TABLE Utilisateurs (
     login VARCHAR(50),
@@ -24,14 +26,9 @@ CREATE TABLE Equipes (
     PRIMARY KEY (nom_equipe, categorie)
 );
 
-CREATE TABLE Effectifs (
-    nom VARCHAR(30),
-    prenom VARCHAR(30),
-    type_licence VARCHAR(20) NOT NULL CHECK (type_licence IN ('Libre', 'Futsal', 'Entreprise', 'Loisir')),
-    nom_equipe VARCHAR(20), 
-    PRIMARY KEY (nom, prenom),
-    FOREIGN KEY (nom_equipe) REFERENCES Equipes(nom_equipe)
-);
+INSERT INTO Equipes VALUES
+('Equipe A','Senior',0),
+('Equipe B','Senior',0);
 
 
 CREATE TABLE Competitions (
@@ -40,7 +37,6 @@ CREATE TABLE Competitions (
     PRIMARY KEY (nom_compet)
 );
 
-
 CREATE TABLE Sites (
     nom_site VARCHAR(50),
     terrain VARCHAR(50),
@@ -48,6 +44,15 @@ CREATE TABLE Sites (
     -- Faudrait trouver une manière de trier la table, sans passer par ORDER BY dans le SELECT
 );
 
+CREATE TABLE Effectifs (
+    nom VARCHAR(30),
+    prenom VARCHAR(30),
+    type_licence VARCHAR(20) NOT NULL CHECK (type_licence IN ('oui', 'non')),
+    nom_equipe VARCHAR(20),
+    categorie VARCHAR(20),
+    PRIMARY KEY (nom, prenom),
+    FOREIGN KEY (nom_equipe, categorie) REFERENCES Equipes(nom_equipe, categorie)
+);
 
 CREATE TABLE NonConvoques (
     nom VARCHAR(30),
@@ -57,20 +62,19 @@ CREATE TABLE NonConvoques (
     FOREIGN KEY (nom, prenom) REFERENCES Effectifs(nom, prenom)
 );
 
-
 CREATE TABLE Matchs (
     date_m DATE,
     categorie VARCHAR(20),
-    competition VARCHAR(20),
+    competition VARCHAR(40),
     equipe VARCHAR(20),
     equipe_adv VARCHAR(20),
     heure TIME,
-    site VARCHAR(50) NOT NULL,
-    terrain VARCHAR(50) NOT NULL,
+    site VARCHAR(50),
+    terrain VARCHAR(50),
     PRIMARY KEY (date_m, categorie, competition, equipe, equipe_adv, heure),
     FOREIGN KEY (competition) REFERENCES Competitions(nom_compet),
-    FOREIGN KEY (categorie, equipe) REFERENCES Equipes(nom_equipe, categorie),
-    FOREIGN KEY (categorie, equipe_adv) REFERENCES Equipes(nom_equipe, categorie),
+    FOREIGN KEY (equipe, categorie) REFERENCES Equipes(nom_equipe, categorie),
+    FOREIGN KEY (equipe_adv) REFERENCES Equipes(nom_equipe),
     FOREIGN KEY (site, terrain) REFERENCES Sites(nom_site, terrain)
 );
 
@@ -80,13 +84,13 @@ CREATE TABLE Convocations (
     categorie VARCHAR(20),
     competition VARCHAR(20),
     equipe_adv VARCHAR(20),
-    site VARCHAR(50) NOT NULL,
-    terrain VARCHAR(50) NOT NULL,
+    site VARCHAR(50),
+    terrain VARCHAR(50),
     heure TIME,
     rdv VARCHAR(100),
     equipe VARCHAR(20),
     PRIMARY KEY (date_m, categorie, competition, equipe_adv, heure, equipe),
-    FOREIGN KEY (categorie, competition, equipe, equipe_adv, date_m, heure) REFERENCES Matchs(categorie, competition, equipe, equipe_adv, date_m, heure),
+    FOREIGN KEY (date_m, categorie, competition, equipe, equipe_adv, heure) REFERENCES Matchs(date_m, categorie, competition, equipe, equipe_adv, heure),
     FOREIGN KEY (site, terrain) REFERENCES Sites(nom_site, terrain)
 );
 

@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 require_once('controlers/HomeControler.php');
 require_once('controlers/ConnexionControler.php');
 require_once('controlers/PlayerControler.php');
@@ -33,17 +31,41 @@ class Router {
         try {
             if (!empty($_SESSION['admin'])) 
             {
-
-                // Dans le cas d'un ajout/retrait de joueur
+                // Dans le cas d'un ajout de joueur
                 if (!empty($_POST['nom_ajout']) && !empty($_POST['prenom_ajout'])) {
                     
                     if ($_POST['eff'] == "Enregistrer") {
-                        $this->_playCtrl->newPlayer($_POST['nom_ajout'], $_POST['prenom_ajout'], $_POST['licence_ajout'], '');
+
+			$equipe = preg_split('/-/',$_POST['equipe_ajout']);
+
+                        $this->_playCtrl->newPlayer($_POST['nom_ajout'], $_POST['prenom_ajout'], $_POST['licence_ajout'],$equipe[0],$equipe[1]);
                     }
-                    else $this->_playCtrl->removePlayer($_POST['nom_ajout'], $_POST['prenom_ajout']);
                     
                     $this->_connCtrl->admin();
+		// Dans le cas d'un changement d'équipe de joueur
+		} else if(!empty($_POST['nom_changement'])) {
+
+		    if ($_POST['eff'] == "Changer") {
+
+			$joueur_chang = preg_split('/ /',$_POST['nom_changement']);
+
+			$equipe = preg_split('/-/',$_POST['equipe_changement']);
+
+                        $this->_playCtrl->changePlayer($joueur_chang[0], $joueur_chang[1], $equipe[0], $equipe[1]);
+                    }
                     
+		    $this->_connCtrl->admin();  
+		// Dans le cas d'un retrait de joueur
+		} else if(!empty($_POST['nom_retrait'])) {
+
+		    if ($_POST['eff'] == "Supprimer") {
+
+			$joueur_supp = preg_split('/ /',$_POST['nom_retrait']);
+
+                        $this->_playCtrl->removePlayer($joueur_supp[0], $joueur_supp[1]);
+                    }
+                    
+		    $this->_connCtrl->admin();                   
                 // Dans le cas d'un ajout/retrait d'absence
                 } else if (!empty($_POST['joueur_abs']) && !empty($_POST['raison_abs'])) {
                     $joueur = explode(' ',$_POST['joueur_abs']); // A modifier pour prendre en compte les cas particuliers
@@ -94,11 +116,13 @@ class Router {
                     $this->_connCtrl->admin();
                     
                     
-                } else if ($_POST['deco'] == 'deco') {
+                } else if (!empty($_POST['deco'])) {
                     session_destroy();
                     $this->_mainCtrl->home();
-                } else {
-                    $this->_connCtrl->admin();
+                } 
+		else 
+		{
+		    $this->_connCtrl->admin();
                 }
                 
             }

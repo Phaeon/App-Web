@@ -12,13 +12,14 @@ abstract class Model {
             $resultat = $this->getBdd()->prepare($sql);
             $resultat->execute($params);
         }
+
         return $resultat;
     }
 
     private function getBdd() {
         if ($this->_bdd == null) {
             $this->_bdd = new PDO('mysql:host=localhost;dbname=convocations;charset=utf8',
-                    'root', 'root',
+                    'etudiant', 'etudiant',
                     array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
         }
         return $this->_bdd;

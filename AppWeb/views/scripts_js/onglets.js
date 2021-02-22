@@ -66,18 +66,17 @@ function page_absences()
 	calendrier.style.backgroundColor = '#d8d8d8';
 	effectif.style.backgroundColor = '#d8d8d8';
 
-	let page = new XMLHttpRequest();
+	let page = document.querySelector('#page');
 
-	page.onreadystatechange = function()
-	{
-		if(page.readyState == XMLHttpRequest.DONE)
-		{
-			document.querySelector('#page').innerHTML = page.responseText;
-		}
-	}
-
-	page.open("POST","views/html/absences.html",true);
-	page.send();
+	fetch("views/html/absences.php").then(
+					function(response) 
+					{
+						return response.text();
+					}).then(
+					function(text)
+					{
+						page.innerHTML = text;
+					});
 }
 
 /*****/
@@ -118,16 +117,15 @@ function page_effectif()
 	calendrier.style.backgroundColor = '#d8d8d8';
 	effectif.style.backgroundColor = '#9b9b9b';
 
-	let page = new XMLHttpRequest();
+	let page = document.querySelector('#page');
 
-	page.onreadystatechange = function()
-	{
-		if(page.readyState == XMLHttpRequest.DONE)
+	fetch("views/html/effectif.php").then(
+		function(response) 
 		{
-			document.querySelector('#page').innerHTML = page.responseText;
-		}
-	}
-
-	page.open("POST","views/html/effectif.html",true);
-	page.send();
+			response.text().then(
+					function(text)
+					{
+						page.innerHTML = text;
+					});
+		});
 }

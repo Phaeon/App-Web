@@ -19,23 +19,15 @@
 		</table>
 		</div>
 
-
 		<div>
 		<table class="onglets">
 			<tr class="onglets">
 				<td class="onglets"></td>
 				<td class="accueil">Accueil</td>
-				<?php
-					
-					echo "<td class=\"convocations\">Convocations</td>";
-					echo "<td class=\"absences\">Absences</td>";
-					
-					if ($_SESSION['role'] == "secr") {
-						echo "<td class=\"calendrier\">Calendrier</td>";
-					}
-					echo "<td class=\"effectif\">Effectif</td>";
-					
-				?>
+				<td class="convocations">Convocations</td>
+				<td class="absences">Absences</td>
+				<td class="calendrier">Calendrier</td>
+				<td class="effectif">Effectif</td>
 				<td class="onglets"></td>
 			</tr>
 		</table>
@@ -94,7 +86,7 @@
 					Coupe régionale - Martigné VS Segré
 				</td>
 				<td class="image">
-					<img class="pdf" src="pdf.png">
+					<img class="pdf" src="images/pdf.png">
 				</td>
 			</tr>
 			<tr class="convocation">

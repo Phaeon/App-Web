@@ -81,7 +81,7 @@
 					Coupe régionale - Martigné VS Segré
 				</td>
 				<td class="image">
-					<img class="pdf" src="images/pdf.png">
+					<img class="pdf" src="../../images/pdf.png">
 				</td>
 			</tr>
 			<tr class="convocation">

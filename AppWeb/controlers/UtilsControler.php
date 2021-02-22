@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 require_once 'models/UtilsModel.php';
 
 class UtilsControler {
