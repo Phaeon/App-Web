@@ -10,7 +10,7 @@
 
 		session_start();
 
-		$joueurs = $_SESSION['joueurs'];
+		$joueurs = $_SESSION['joueurs_presents'];
 
 		foreach($joueurs as $record)
 		{
@@ -24,15 +24,13 @@
 	<label>Raison :</label>
 	<select name="raison_abs">
 		<option value="">-- Choisissez une raison --</option>
-		<option value="absent">Absent</option>
-		<option value="blesse">Blessé</option>
-		<option value="suspendu">Suspendu</option>
-		<option value="sans_licence">Sans licence</option>
+		<option value="Absent">Absent</option>
+		<option value="Blesse">Blessé</option>
+		<option value="Suspendu">Suspendu</option>
+		<option value="Sans licence">Sans licence</option>
 	</select><br>
 
 	<button type="submit" name="abs" value="enr_abs">Enregistrer</button>
-    <button type="submit" name="abs" value="supp_abs">Supprimer</button>
-
 
 	</fieldset>
 </form>
@@ -42,7 +40,7 @@
 	<legend>Retirer un joueur de la liste des absences</legend>
 
 	<label>Liste des joueurs absents :</label>
-	<select name="joueur_abs">
+	<select name="retirer_abs">
 		<option value="">-- Choisissez un joueur --</option>
 
 		<?php
@@ -60,18 +58,28 @@
 
 	</select><br>
 
-	<label>Raison :</label>
-	<select name="raison_abs">
-		<option value="">-- Choisissez une raison --</option>
-		<option value="absent">Absent</option>
-		<option value="blesse">Blessé</option>
-		<option value="suspendu">Suspendu</option>
-		<option value="sans_licence">Sans licence</option>
-	</select><br>
-
-	<button type="submit" name="abs" value="enr_abs">Enregistrer</button>
-    <button type="submit" name="abs" value="supp_abs">Supprimer</button>
-
+	<button type="submit" name="abs" value="supp_abs">Supprimer</button>
 
 	</fieldset>
 </form>
+
+<p id="titre">JOUEURS ABSENTS</p>
+
+<table>
+	<tr>
+		<th class="effectifs">Nom</th>
+		<th class="effectifs">Prénom</th>
+		<th class="effectifs">Raison</th>
+	</tr>
+
+	<?php
+
+	$joueurs = $_SESSION['absents'];
+
+	foreach($joueurs as $record)
+	{
+		echo "<tr><td class=\"effectifs\">$record[0]</td><td class=\"effectifs\">$record[1]</td><td class=\"effectifs\">$record[2]</td></tr>";
+	}
+
+	?>
+</table>

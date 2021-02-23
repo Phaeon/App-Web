@@ -98,10 +98,8 @@ CREATE TABLE Convocations (
 CREATE TABLE Absences (
     nom VARCHAR(30),
     prenom VARCHAR(30),
-    date_m DATE,
     raison VARCHAR(15) NOT NULL CHECK (raison IN ('Exempt', 'Absent', 'Blesse', 'Suspendu', 'Sans licence')),
     raison_court CHAR(1) NOT NULL CHECK (raison_court IN ('A', 'B', 'N', 'S')),
-    PRIMARY KEY (nom, prenom, date_m),
-    FOREIGN KEY (nom, prenom) REFERENCES Effectifs(nom, prenom),
-    FOREIGN KEY (date_m) REFERENCES Matchs(date_m)
+    PRIMARY KEY (nom, prenom),
+    FOREIGN KEY (nom, prenom) REFERENCES Effectifs(nom, prenom)
 );

@@ -10,7 +10,7 @@ class PlayerControler {
         $this->_player = new PlayerModel();
     }
     
-    public function newAbsentPlayer($nom, $prenom, $dateMatch, $raison='') {
+    public function newAbsentPlayer($nom, $prenom, $raison) {
         $nom = ucfirst(strtolower($nom));
         $prenom = ucfirst(strtolower($prenom));
         $raisonC = '';
@@ -19,7 +19,7 @@ class PlayerControler {
             case 'Absent':
                 $raisonC = 'A';
                 break;
-            case 'Blessé':
+            case 'Blesse':
                 $raisonC = 'B';
                 break;
             case 'Suspendu':
@@ -32,14 +32,14 @@ class PlayerControler {
                 break;
         }
         
-        $this->_player->insertAbsentPlayer($nom, $prenom, $dateMatch, $raison, $raisonC);
+        $this->_player->insertAbsentPlayer($nom, $prenom, $raison, $raisonC);
     }
     
-    public function removeAbsentPlayer($nom, $prenom, $dateMatch) {
+    public function removeAbsentPlayer($nom, $prenom) {
         $nom = ucfirst(strtolower($nom));
         $prenom = ucfirst(strtolower($prenom));
         
-        $this->_player->removeAbsentPlayer($nom, $prenom, $dateMatch);
+        $this->_player->removeAbsentPlayer($nom, $prenom);
     }
     
     public function newPlayer($nom, $prenom, $licence, $equipe, $categorie) {        
@@ -75,6 +75,10 @@ class PlayerControler {
 
     public function getAbsent() {
 	return $this->_player->getAbsent();
+    }
+
+    public function getPresent() {
+	return $this->_player->getPresent();
     }
 }
 

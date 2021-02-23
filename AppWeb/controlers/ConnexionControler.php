@@ -39,6 +39,8 @@ class ConnexionControler {
 	$_SESSION['joueurs'] = $this->_play->getPlayer()->fetchAll(PDO::FETCH_NUM);
 	$_SESSION['equipes'] = $this->_play->getTeam()->fetchAll(PDO::FETCH_NUM);
 	$_SESSION['absents'] = $this->_play->getAbsent()->fetchAll(PDO::FETCH_NUM);
+	$_SESSION['joueurs_presents'] = $this->_play->getPresent()->fetchAll(PDO::FETCH_NUM);
+
         // Créer une nouvelle vue admin
         require_once('views/AdminView.php');
     }

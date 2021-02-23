@@ -66,15 +66,28 @@ class Router {
                     }
                     
 		    $this->_connCtrl->admin();                   
-                // Dans le cas d'un ajout/retrait d'absence
+                // Dans le cas d'un ajout d'absence
                 } else if (!empty($_POST['joueur_abs']) && !empty($_POST['raison_abs'])) {
-                    $joueur = explode(' ',$_POST['joueur_abs']); // A modifier pour prendre en compte les cas particuliers
-                    
-                    if ($_POST['abs'] == 'supp_abs') $this->_playCtrl->removeAbsentPlayer($joueur[0], $joueur[1], $_POST['date_abs']);
-                    else $this->_playCtrl->newAbsentPlayer($joueur[0], $joueur[1], $_POST['compet_abs'], $_POST['raison_abs']);
+
+                    $joueur_abs = preg_split('/ /',$_POST['joueur_abs']);
+
+                    if ($_POST['abs'] == "enr_abs")
+		    {
+			$this->_playCtrl->newAbsentPlayer($joueur_abs[0], $joueur_abs[1], $_POST['raison_abs']);
+		    }
                     
                     $this->_connCtrl->admin();
+                // Dans le cas d'un retrait d'absence
+                } else if (!empty($_POST['retirer_abs'])) {
+
+                    $joueur_abs = preg_split('/ /',$_POST['retirer_abs']);
+                  
+		    if ($_POST['abs'] == "supp_abs")
+		    {
+		    	$this->_playCtrl->removeAbsentPlayer($joueur_abs[0], $joueur_abs[1]);
+		    }
                     
+                    $this->_connCtrl->admin();
                 // Dans le cas d'un ajout de site
                 } else if (!empty($_POST['gest_site'])) {
                     

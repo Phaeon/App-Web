@@ -4,26 +4,26 @@ require_once('models/Model.php');
 
 class PlayerModel extends Model {
     
-    public function insertAbsentPlayer($nom, $prenom, $dateMatch, $raison, $raisonC) {
-        $sql = "INSERT INTO Absences VALUES ('$nom', '$prenom', '$dateMatch', '$raison', '$raisonC')";
+    public function insertAbsentPlayer($nom, $prenom, $raison, $raisonC) {
+        $sql = "INSERT INTO Absences VALUES ('$nom', '$prenom', '$raison', '$raisonC')";
         
         try {
             $this->executeRequest($sql);
-            echo "<script>alert('Joueur ".ucfirst(strtolower($nom))." ".ucfirst(strtolower($prenom))." a été ajouté en tant que absent.');</script>";
+            echo "<script>alert('Joueur ".ucfirst(strtolower($nom))." ".ucfirst(strtolower($prenom))." a été ajouté en tant qu\'absent.');</script>";
         } catch (Exception $e) {
-            echo $e->getMessage();
+            echo "<script>alert('Erreur: Impossible d'ajouter le joueur en tant qu\'absent.');</script>";
         }
         
     }
     
-    public function removeAbsentPlayer($nom, $prenom, $dateMatch) {
-        $sql = "DELETE FROM Absences WHERE nom = '$nom' AND prenom = '$prenom' AND date_m = '$dateMatch'";
+    public function removeAbsentPlayer($nom, $prenom) {
+        $sql = "DELETE FROM Absences WHERE nom = '$nom' AND prenom = '$prenom'";
         
         try {
             $this->executeRequest($sql);
-            echo "<script>alert('Joueur ".ucfirst(strtolower($nom))." ".ucfirst(strtolower($prenom))." n'est plus absent.');</script>";
+            echo "<script>alert('Joueur ".ucfirst(strtolower($nom))." ".ucfirst(strtolower($prenom))." n\'est plus absent.');</script>";
         } catch (Exception $e) {
-            echo $e->getMessage();
+            echo "<script>alert('Erreur: Impossible de retirer le joueur des absents.');</script>";
         }
         
     }
@@ -92,13 +92,25 @@ class PlayerModel extends Model {
     }
 
     public function getAbsent() {
-	$sql = "SELECT nom,prenom FROM Absences";
+	$sql = "SELECT * FROM Absences";
 
 	try {
             $req = $this->executeRequest($sql);
         } catch (Exception $e) {
             echo "<script>alert('Erreur: Impossible d\'avoir les absents.');</script>";
         }
+
+	return $req;
+    }
+
+    public function getPresent() {
+	$sql = "SELECT nom,prenom FROM Effectifs WHERE nom NOT IN (SELECT nom FROM Absences) AND prenom NOT IN (SELECT prenom FROM Absences)";
+
+	try {
+		$req = $this->executeRequest($sql);
+	} catch (Exception $e) {
+		echo "<script>alert('Erreur : Impossible d\'avoir les présents.');</script>";
+	}
 
 	return $req;
     }
