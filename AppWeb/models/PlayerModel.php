@@ -9,6 +9,14 @@ class PlayerModel extends Model {
         
         try {
             $this->executeRequest($sql);
+
+	    if($raisonC == 'N')
+	    {
+		$sql2 = "UPDATE Effectifs SET type_licence = 'non' WHERE nom = '$nom' AND prenom = '$prenom'";
+
+		$this->executeRequest($sql2);
+	    }
+
             echo "<script>alert('Joueur ".ucfirst(strtolower($nom))." ".ucfirst(strtolower($prenom))." a été ajouté en tant qu\'absent.');</script>";
         } catch (Exception $e) {
             echo "<script>alert('Erreur: Impossible d'ajouter le joueur en tant qu\'absent.');</script>";
@@ -17,10 +25,21 @@ class PlayerModel extends Model {
     }
     
     public function removeAbsentPlayer($nom, $prenom) {
+
+	$raison = "SELECT raison_court FROM Absences WHERE nom = '$nom' AND prenom = '$prenom'";
         $sql = "DELETE FROM Absences WHERE nom = '$nom' AND prenom = '$prenom'";
         
         try {
+	    $abs = $this->executeRequest($raison)->fetch(PDO::FETCH_NUM);
             $this->executeRequest($sql);
+
+	    if($abs[0] == 'N')
+	    {
+		$sql2 = "UPDATE Effectifs SET type_licence = 'oui' WHERE nom = '$nom' AND prenom = '$prenom'";
+
+		$this->executeRequest($sql2);
+	    }
+
             echo "<script>alert('Joueur ".ucfirst(strtolower($nom))." ".ucfirst(strtolower($prenom))." n\'est plus absent.');</script>";
         } catch (Exception $e) {
             echo "<script>alert('Erreur: Impossible de retirer le joueur des absents.');</script>";
@@ -34,6 +53,14 @@ class PlayerModel extends Model {
 
         try {
             $this->executeRequest($sql);
+
+	    if($licence == "non")
+	    {
+		$sql2 = "INSERT INTO Absences VALUES ('$nom', '$prenom', 'Sans licence', 'N')";
+
+		$this->executeRequest($sql2);
+	    }
+
             echo "<script>alert('Joueur ".ucfirst(strtolower($nom))." ".ucfirst(strtolower($prenom))." a été ajouté.');</script>";
         } catch (Exception $e) {
             echo "<script>alert('Erreur: Impossible d'ajouter le joueur.');</script>";
@@ -64,6 +91,31 @@ class PlayerModel extends Model {
             } else echo "<script>alert('Erreur: Impossible de changer le joueur d'équipe.');</script>";
         } catch (Exception $e) {
             echo "<script>alert('Erreur: Impossible de changer le joueur d'équipe.');</script>";
+        } 
+    }
+
+    public function newTeam($equipe, $categorie) {
+        $sql = "INSERT INTO Equipes VALUES ('$equipe','$categorie',0)";
+
+        try {
+            $this->executeRequest($sql);
+            echo "<script>alert('".ucfirst(strtolower($equipe))." - ".ucfirst(strtolower($categorie))." a été créée.');</script>";
+        } catch (Exception $e) {
+            echo "<script>alert('Erreur: Impossible d'ajouter l\'équipe.');</script>";
+        }
+        
+    }
+
+    public function removeTeam($equipe, $categorie) {
+        $sql = "DELETE FROM Equipes WHERE nom_equipe = '$equipe' AND categorie = '$categorie'";
+        
+        try {
+            $req = $this->executeRequest($sql);
+            if ($req->rowCount() > 0) {
+                echo "<script>alert('".ucfirst(strtolower($equipe))." - ".ucfirst(strtolower($categorie))." a été retirée.');</script>";
+            } else echo "<script>alert('Erreur: Impossible de retirer le joueur.');</script>";
+        } catch (Exception $e) {
+            echo "<script>alert('Erreur: Impossible de retirer l\'équipe.');</script>";
         } 
     }
 

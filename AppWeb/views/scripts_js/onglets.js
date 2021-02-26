@@ -91,18 +91,17 @@ function page_calendrier()
 	calendrier.style.backgroundColor = '#9b9b9b';
 	effectif.style.backgroundColor = '#d8d8d8';
 
-	let page = new XMLHttpRequest();
+	let page = document.querySelector('#page');
 
-	page.onreadystatechange = function()
-	{
-		if(page.readyState == XMLHttpRequest.DONE)
+	fetch("views/html/calendrier.php").then(
+		function(response) 
 		{
-			document.querySelector('#page').innerHTML = page.responseText;
-		}
-	}
-
-	page.open("POST","views/html/calendrier.html",true);
-	page.send();
+			response.text().then(
+					function(text)
+					{
+						page.innerHTML = text;
+					});
+		});
 }
 
 /*****/

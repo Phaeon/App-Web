@@ -25,25 +25,6 @@ class UtilsControler {
         $this->_utils->removeSite($site, $terrain);
     }
     
-    // EQUIPES
-    public function newTeam($nom_equipe, $categorie, $effectif=0) {
-        $nom_equipe = strtoupper($nom_equipe);
-        $categorie = strtoupper($categorie);
-        
-        $this->_utils->insertNewTeam($nom_equipe, $categorie, $effectif);
-        
-    }
-    
-    public function removeTeam($nom_equipe, $categorie) {
-        $nom_equipe = strtoupper($nom_equipe);
-        $categorie = strtoupper($categorie);
-        
-        $this->_utils->removeTeam($nom_equipe, $categorie);
-        
-    }
-    
-    
-    
     // COMPETITIONS
     public function newCompetition($nom_compet, $importance=1) {
         $nom_compet = strtoupper($nom_compet);
@@ -57,6 +38,11 @@ class UtilsControler {
         
         $this->_utils->removeCompetition($nom_compet);
         
+    }
+
+    public function getCompetition() {
+	
+	return $this->_utils->getCompetition();
     }
     
 }

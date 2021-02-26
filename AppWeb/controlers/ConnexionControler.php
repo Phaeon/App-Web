@@ -3,6 +3,7 @@
 require_once 'models/ConnexionModel.php';
 require_once 'controlers/HomeControler.php';
 require_once 'controlers/PlayerControler.php';
+require_once 'controlers/UtilsControler.php';
 require_once 'views/View.php';
 
 class ConnexionControler {
@@ -10,11 +11,13 @@ class ConnexionControler {
     private $_conn;
     private $_main;
     private $_play;
+    private $_utils;
     
     public function __construct() {
         $this->_conn = new ConnexionModel();
         $this->_main = new HomeControler();
 	$this->_play = new PlayerControler();
+	$this->_utils = new UtilsControler();
     }
     
     public function connexion($login, $mdp) {
@@ -40,6 +43,7 @@ class ConnexionControler {
 	$_SESSION['equipes'] = $this->_play->getTeam()->fetchAll(PDO::FETCH_NUM);
 	$_SESSION['absents'] = $this->_play->getAbsent()->fetchAll(PDO::FETCH_NUM);
 	$_SESSION['joueurs_presents'] = $this->_play->getPresent()->fetchAll(PDO::FETCH_NUM);
+	$_SESSION['competition'] = $this->_utils->getCompetition()->fetchAll(PDO::FETCH_NUM);
 
         // Créer une nouvelle vue admin
         require_once('views/AdminView.php');

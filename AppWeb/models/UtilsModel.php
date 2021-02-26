@@ -29,44 +29,15 @@ class UtilsModel extends Model {
         
     }
     
-    
-    
-    // GESTION DES EQUIPES
-    public function insertNewTeam($nom_equipe, $categorie, $effectif) {
-        $sql = "INSERT INTO Equipes VALUES ('$nom_equipe', '$categorie', '$effectif')";
-        
-        try {
-            $this->executeRequest($sql);
-            echo "<script>alert('Equipe a été ajoutée avec succès.');</script>";
-        } catch (Exception $e) {
-            echo "ERROR : ".$e->getMessage();
-        }
-        
-    }
-    
-    public function removeTeam($nom_equipe, $categorie) {
-        $sql = "DELETE FROM Equipes WHERE nom_equipe = '$nom_equipe' AND categorie = '$categorie'";
-        
-        try {
-            $this->executeRequest($sql);
-            echo "<script>alert('Equipe a été supprimée avec succès.');</script>";
-        } catch (Exception $e) {
-            echo "ERROR : ".$e->getMessage();
-        }
-        
-    }
-    
-    
-    
     // GESTION DES COMPETITIONS
     public function insertNewCompetition($nom_compet, $importance) {
         $sql = "INSERT INTO Competitions VALUES ('$nom_compet', '$importance')";
-        
+
         try {
             $this->executeRequest($sql);
-            echo "<script>alert('Compétition a été ajoutée avec succès.');</script>";
+            echo "<script>alert('".$nom_compet." a été ajoutée avec succès.');</script>";
         } catch (Exception $e) {
-            echo "ERROR : ".$e->getMessage();
+            echo "<script>alert('Erreur : impossible d\'ajouter la compétition.');</script>";
         }
         
     }
@@ -76,11 +47,24 @@ class UtilsModel extends Model {
         
         try {
             $this->executeRequest($sql);
-            echo "<script>alert('Compétition a été supprimée avec succès.');</script>";
+            echo "<script>alert(".$nom_compet." a été supprimée avec succès.');</script>";
         } catch (Exception $e) {
-            echo "ERROR : ".$e->getMessage();
+            echo "<script>alert('Erreur : impossible de retirer la compétition.');</script>";
         }
         
+    }
+
+    public function getCompetition() {
+		
+	$sql = "SELECT nom_compet FROM Competitions";
+
+	try {
+		$req = $this->executeRequest($sql);
+	} catch (Exception $e) {
+		echo "<script>alert('Erreur : impossible d\'accéder aux compétitions.');</script>";
+	}
+
+	return $req;
     }
     
     

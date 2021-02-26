@@ -65,7 +65,27 @@ class Router {
                         $this->_playCtrl->removePlayer($joueur_supp[0], $joueur_supp[1]);
                     }
                     
-		    $this->_connCtrl->admin();                   
+		    $this->_connCtrl->admin();
+		// Dans le cas d'un ajout d'équipe
+		} else if(!empty($_POST['equipe_ajout']) && !empty($_POST['cat_ajout'])) {
+
+		    if ($_POST['equipe'] == "Créer") {
+
+                        $this->_playCtrl->newTeam($_POST['equipe_ajout'], $_POST['cat_ajout']);
+                    }
+                    
+		    $this->_connCtrl->admin();
+		// Dans le cas d'un retrait d'équipe
+		} else if(!empty($_POST['equipe_retrait'])) {
+
+		    if ($_POST['equipe'] == "Supprimer") {
+
+			$equipe = preg_split('/-/',$_POST['equipe_retrait']);
+
+                        $this->_playCtrl->removeTeam($equipe[0], $equipe[1]);
+                    }
+                    
+		    $this->_connCtrl->admin();                
                 // Dans le cas d'un ajout d'absence
                 } else if (!empty($_POST['joueur_abs']) && !empty($_POST['raison_abs'])) {
 
@@ -88,23 +108,22 @@ class Router {
 		    }
                     
                     $this->_connCtrl->admin();
-                // Dans le cas d'un ajout de site
-                } else if (!empty($_POST['gest_site'])) {
+                // Dans le cas d'un ajout de compétition
+                } else if (!empty($_POST['compet_ajout'])) {
                     
-                    if ($_POST['gest_site_button'] == 'supp_site') $this->_utils->removeSite($_POST['gest_site']);
-                    else $this->_playCtrl->newSite($_POST['gest_site'], $_POST['gest_site_imp']);
-                    
-                    $this->_connCtrl->admin();
-                    
-                    
-                } else if (!empty($_POST['gest_equi_nom']) && !empty($_POST['gest_equi_cat'])) {
-                    
-                    if ($_POST['gest_equi_button'] == 'supp_equi') $this->_utils->removeTeam($_POST['gest_equi_nom'], $_POST['gest_equi_cat']);
-                    else $this->_playCtrl->newTeam($_POST['gest_equi_nom'], $_POST['gest_equi_cat'], $_POST['gest_equi_eff']);
+                    if ($_POST['compet'] == 'Enregistrer') {
+			$this->_utilsCtrl->newCompetition($_POST['compet_ajout']);
+		    }
                     
                     $this->_connCtrl->admin();
+                // Dans le cas d'un retrait de compétition
+                } else if (!empty($_POST['compet_retrait'])) {
                     
+                    if ($_POST['compet'] == 'Supprimer') {
+			$this->_utilsCtrl->removeCompetition($_POST['compet_retrait']);
+		    }
                     
+                    $this->_connCtrl->admin();
                 } else if (!empty($_POST['gest_compet_nom'])) {
                     
                     if ($_POST['gest_compet_button'] == 'supp_compet') $this->_utils->removeCompetition($_POST['gest_compet_nom']);

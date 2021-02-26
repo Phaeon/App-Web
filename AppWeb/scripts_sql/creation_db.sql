@@ -27,8 +27,8 @@ CREATE TABLE Equipes (
 );
 
 INSERT INTO Equipes VALUES
-('Equipe A','Senior',0),
-('Equipe B','Senior',0);
+('EQUIPE A','SENIOR',0),
+('EQUIPE B','SENIOR',0);
 
 
 CREATE TABLE Competitions (

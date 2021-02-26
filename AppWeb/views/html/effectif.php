@@ -3,13 +3,13 @@
 	<legend>Enregistrer un nouveau joueur</legend>
 
 	<label>Nom :</label>
-	<input type="text" name="nom_ajout"><br>
+	<input type="text" name="nom_ajout" required><br>
 
 	<label>Prénom :</label>
-	<input type="text" name="prenom_ajout"><br>
+	<input type="text" name="prenom_ajout" required><br>
 
 	<label>Equipe :</label>
-	<select name="equipe_ajout">
+	<select name="equipe_ajout" required>
 		<option value="">-- Choisissez une équipe --</option>
 
 		<?php
@@ -27,7 +27,7 @@
 	</select><br>
 
 	<label>Licence : Oui </label>
-	<input type="radio" name="licence_ajout" value="oui">
+	<input type="radio" name="licence_ajout" value="oui" checked>
 	<label>Non</label>
 	<input type="radio" name="licence_ajout" value="non">
 	<br>
@@ -42,7 +42,7 @@
 	<legend>Changer un joueur d'équipe</legend>
 
 	<label>Liste des joueurs :</label>
-	<select name="nom_changement">
+	<select name="nom_changement" required>
 		<option value="">-- Choisissez un joueur --</option>
 
 		<?php
@@ -60,16 +60,16 @@
 	</select><br>
 
 	<label>Equipe :</label>
-	<select name="equipe_changement">
+	<select name="equipe_changement" required>
 		<option value="">-- Choisissez une équipe --</option>
 
 		<?php
 
 		session_start();
 
-		$joueurs = $_SESSION['equipes'];
+		$equipes = $_SESSION['equipes'];
 
-		foreach($joueurs as $record)
+		foreach($equipes as $record)
 		{
 			echo "<option value=\"$record[0]-$record[1]\">$record[0]-$record[1]</option>";
 		}
@@ -108,6 +108,52 @@
 
 	</fieldset>
 </form>
+
+<hr>
+
+<form method="post">
+	<fieldset>
+	<legend>Créer une nouvelle équipe</legend>
+
+	<label>Nom :</label>
+	<input type="text" name="equipe_ajout" required><br>
+
+	<label>Catégorie :</label>
+	<input type="text" name="cat_ajout" required><br>
+
+        <button name="equipe" type="submit" value="Créer">Créer</button>
+
+	</fieldset>
+</form>
+
+<form method="post">
+	<fieldset>
+	<legend>Supprimer une équipe</legend>
+
+	<label>Liste des équipes :</label>
+	<select name="equipe_retrait" required>
+		<option value="">-- Choisissez une équipe --</option>
+
+		<?php
+
+		session_start();
+
+		$equipes = $_SESSION['equipes'];
+
+		foreach($equipes as $record)
+		{
+			echo "<option value=\"$record[0]-$record[1]\">$record[0]-$record[1]</option>";
+		}
+	
+		?>
+	</select><br>
+
+        <button name="equipe" type="submit" value="Supprimer">Supprimer</button>
+
+	</fieldset>
+</form>
+
+<hr>
 
 <p id="titre">JOUEURS</p>
 

@@ -63,6 +63,8 @@
 	</fieldset>
 </form>
 
+<hr>
+
 <p id="titre">JOUEURS ABSENTS</p>
 
 <table>

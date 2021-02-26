@@ -64,6 +64,20 @@ class PlayerControler {
         
         $this->_player->changePlayer($nom, $prenom,$equipe,$categorie);
     }
+
+    public function newTeam($equipe, $categorie) {        
+        $equipe = strtoupper($equipe);
+	$categorie = strtoupper($categorie);
+        
+        $this->_player->newTeam($equipe, $categorie);
+    }
+
+    public function removeTeam($equipe, $categorie) {        
+        $equipe = strtoupper($equipe);
+	$categorie = strtoupper($categorie);
+        
+        $this->_player->removeTeam($equipe, $categorie);
+    }
   
     public function getPlayer() {
 	return $this->_player->getPlayer();
