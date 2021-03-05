@@ -44,16 +44,21 @@ ATTENTION : Ne pas mettre le fichier `.htaccess` dans le répertoire `AppWeb`, s
 >
 > AuthType Basic
 >
-> AuthUserFile "AppWeb/.htpasswd"
+> AuthUserFile "Chemin/Relatif/Du/Fichier/.htpasswd"
 >
 > Require valid-user
+ 
+Pensez à changer le chemin relatif du fichier.
 
 - Fichier ".htpasswd":
 
-Le fichier `AppWeb/crypter.php` vous permet de générer un mot de passe crypté que vous insérez dans le fichier.
+Le fichier `AppWeb/admin/crypter.php` vous permet de générer un mot de passe crypté que vous insérez dans le fichier.
 
 > login:motDePasseCrypté
+> 
+> root:$2y$10$gm2aKua/GuVuQT8u0So76.KOVEl1h3WJ3yOGnlv.BtCHEAXOYeIXu
 
+Les identifiants par défaut sont root:root.
 Vous aurez donc simplement à entrer votre identifiant administrateur et mot de passe pour accéder aux fichiers depuis la barre d'adresse.
 
 CONSEIL : En tant que gérant du serveur web, vous pouvez modifier directement les fichiers source sur le serveur. Si vous ne voyez pas l'utilité de donner accès aux fichiers sources à un autre utilisateur, cela ne sert à rien d'introduire des mots de passe, insérez simplement le fichier `.htpasswd` vide là où vous le souhaitez.
