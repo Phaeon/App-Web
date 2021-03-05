@@ -20,7 +20,7 @@ Vous aurez plusieurs choses à installer et à prévoir...
 
 1. Installez votre serveur Web
 2. Dans les fichiers sources de votre serveur, importez le dossier AppWeb
-3. Accedez à phpMyAdmin sur votre serveur web (login/mot de passe par défaut : root/root)
+3. Accedez à votre base de données de votre serveur web (login/mot de passe par défaut pour phpMyAdmin : root/root)
 3.1. Dans le cas où root n'est pas votre identifiant, pensez à changer le login ainsi que le mot de passe dans le fichier source `AppWeb/models/Model.php`, sinon, les différentes requêtes de l'application ne fonctionneront pas.
 4. Importez le script sql `creation_db` situé dans le dossier `AppWeb/scripts_sql` afin de créer la base de données et les tables associées. Si tout se passe bien, vous ne devriez voir que des cadres verts indiquants que chaque requête a été correctement exécutée.
 5. Vous pouvez commencer à créer un rôle administrateur pour vous ou pour une autre personne
