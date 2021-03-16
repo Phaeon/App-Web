@@ -22,45 +22,54 @@ CREATE TABLE Utilisateurs (
 CREATE TABLE Equipes (
     nom_equipe VARCHAR(20),
     categorie VARCHAR(20),
-    effectif INTEGER NOT NULL,
     PRIMARY KEY (nom_equipe, categorie)
 );
 
 INSERT INTO Equipes VALUES
-('EQUIPE A','SENIOR',0),
-('EQUIPE B','SENIOR',0);
+('EQUIPE A','VETERAN'),
+('EQUIPE A','SENIOR');
 
 
 CREATE TABLE Competitions (
-    nom_compet VARCHAR(40),
-    importance INTEGER CHECK (importance > 0),
+    nom_compet VARCHAR(100),
     PRIMARY KEY (nom_compet)
 );
 
-CREATE TABLE Sites (
-    nom_site VARCHAR(50),
-    terrain VARCHAR(50),
-    PRIMARY KEY (nom_site, terrain)
-    -- Faudrait trouver une manière de trier la table, sans passer par ORDER BY dans le SELECT
-);
+INSERT INTO Competitions VALUES
+('Championnat départemental - SENIOR'),
+('Championnat de France - VETERAN');
 
 CREATE TABLE Effectifs (
     nom VARCHAR(30),
     prenom VARCHAR(30),
     type_licence VARCHAR(20) NOT NULL CHECK (type_licence IN ('oui', 'non')),
-    nom_equipe VARCHAR(20),
     categorie VARCHAR(20),
-    PRIMARY KEY (nom, prenom),
-    FOREIGN KEY (nom_equipe, categorie) REFERENCES Equipes(nom_equipe, categorie)
+    PRIMARY KEY (nom, prenom)
 );
 
-CREATE TABLE NonConvoques (
-    nom VARCHAR(30),
-    prenom VARCHAR(30),
-    raison VARCHAR(15) NOT NULL CHECK (raison IN ('Exempt', 'Absent', 'Blesse', 'Suspendu', 'Sans licence')),
-    PRIMARY KEY (nom, prenom),
-    FOREIGN KEY (nom, prenom) REFERENCES Effectifs(nom, prenom)
-);
+INSERT INTO Effectifs VALUES
+('Petit','Emmanuel','oui','VETERAN'),
+('Zidane','Zinedine','oui','VETERAN'),
+('Djorkaeff','Youri','oui','VETERAN'),
+('Lizarazu','Bixente','oui','VETERAN'),
+('Barthez','Fabien','oui','VETERAN'),
+('Thuram','Lilian','oui','VETERAN'),
+('Deschamps','Didier','oui','VETERAN'),
+('Leboeuf','Frank','oui','VETERAN'),
+('Vieira','Patrick','oui','VETERAN'),
+('Blanc','Laurent','oui','VETERAN'),
+('Trezeguet','David','oui','VETERAN'),
+('Mbappé','Kylian','oui','SENIOR'),
+('Griezmann','Antoine','oui','SENIOR'),
+('Lloris','Hugo','oui','SENIOR'),
+('Giroud','Olivier','oui','SENIOR'),
+('Pogba','Paul','oui','SENIOR'),
+('Kanté','N Golo','oui','SENIOR'),
+('Pavard','Benjamin','oui','SENIOR'),
+('Matuidi','Blaise','oui','SENIOR'),
+('Umtiti','Samuel','oui','SENIOR'),
+('Martial','Anthony','oui','SENIOR'),
+('Varane','Raphaël','oui','SENIOR');
 
 CREATE TABLE Matchs (
     date_m DATE,
@@ -73,33 +82,21 @@ CREATE TABLE Matchs (
     terrain VARCHAR(50),
     PRIMARY KEY (date_m, categorie, competition, equipe, equipe_adv, heure),
     FOREIGN KEY (competition) REFERENCES Competitions(nom_compet),
-    FOREIGN KEY (equipe, categorie) REFERENCES Equipes(nom_equipe, categorie),
-    FOREIGN KEY (equipe_adv) REFERENCES Equipes(nom_equipe),
-    FOREIGN KEY (site, terrain) REFERENCES Sites(nom_site, terrain)
+    FOREIGN KEY (equipe, categorie) REFERENCES Equipes(nom_equipe, categorie)
 );
 
 
 CREATE TABLE Convocations (
     date_m DATE,
-    categorie VARCHAR(20),
-    competition VARCHAR(20),
-    equipe_adv VARCHAR(20),
-    site VARCHAR(50),
-    terrain VARCHAR(50),
-    heure TIME,
-    rdv VARCHAR(100),
-    equipe VARCHAR(20),
-    PRIMARY KEY (date_m, categorie, competition, equipe_adv, heure, equipe),
-    FOREIGN KEY (date_m, categorie, competition, equipe, equipe_adv, heure) REFERENCES Matchs(date_m, categorie, competition, equipe, equipe_adv, heure),
-    FOREIGN KEY (site, terrain) REFERENCES Sites(nom_site, terrain)
+    PRIMARY KEY (date_m)
 );
 
 
 CREATE TABLE Absences (
     nom VARCHAR(30),
     prenom VARCHAR(30),
-    raison VARCHAR(15) NOT NULL CHECK (raison IN ('Exempt', 'Absent', 'Blesse', 'Suspendu', 'Sans licence')),
-    raison_court CHAR(1) NOT NULL CHECK (raison_court IN ('A', 'B', 'N', 'S')),
+    raison VARCHAR(15) NOT NULL CHECK (raison IN ('Absent', 'Blesse', 'Suspendu', 'Sans licence')),
+    raison_court CHAR(1) NOT NULL CHECK (raison_court IN ('A', 'B', 'S', 'N')),
     PRIMARY KEY (nom, prenom),
     FOREIGN KEY (nom, prenom) REFERENCES Effectifs(nom, prenom)
 );

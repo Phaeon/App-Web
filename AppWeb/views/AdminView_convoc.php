@@ -6,7 +6,8 @@
 	<link rel="stylesheet" type="text/css" href="views/stylesheets/style.css">
 
 	<script src="views/scripts_js/match.js" defer></script>
-	<script src="views/scripts_js/onglets.js" defer></script>
+	<script src="views/scripts_js/onglets_convoc.js" defer></script>
+	<script src="views/scripts_js/convocation.js" defer></script>
 </head>
 
 <body>
@@ -92,7 +93,7 @@
 		</table>
 		</div>
 
-<!-- PAGE CONVOCATION -->
+<!-- PAGE CONVOCATIONS -->
 
 		<div id="convocations">
 			<form method="post">
@@ -121,9 +122,44 @@
 
 				</fieldset>
 			</form>
+
+			<form method="post">
+
+			<?php
+				if(isset($_SESSION['specific_matchs']))
+				{
+					$matchs = $_SESSION['specific_matchs'];
+
+					$joueurs = $_SESSION['joueurs_presents'];
+
+					$date = $_POST['date_rencontre'];
+
+					$_SESSION["date_convocation"] = $date;
+	
+					foreach($matchs as $record)
+					{
+						echo "<div><fieldset class=\"match\"><legend>$record[2] $record[1] - $record[3] contre $record[4]</legend>Joueurs disponibles<br><br>";
+
+						foreach($joueurs as $joueur)
+						{
+							if($joueur[3] == $record[1])
+							{
+								echo"<label>$joueur[0] $joueur[1] </label><input type=\"radio\" name=\"$joueur[0]-$joueur[1]\" value=\"$record[2] $record[1] - $record[3] contre $record[4]\"><br>";
+							}
+						}
+
+						echo "</fieldset></div>";
+					}
+
+					echo "<div><button type=\"submit\" name=\"Publier\" value=\"Publier\">Publier</button></div>";
+				}		
+			?>
+
+			</form>
+
 		</div>
 
-<!-- PAGE ABSENCE -->
+<!-- PAGE ABSENCES -->
 
 		<div id="absences">
 

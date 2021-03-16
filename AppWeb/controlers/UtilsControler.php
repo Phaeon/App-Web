@@ -10,22 +10,8 @@ class UtilsControler {
         $this->_utils = new UtilsModel();
     }
     
-    // SITES
-    public function newSite($site, $terrain) {
-        $site = strtoupper($site);
-        $terrain = strtoupper($terrain);
-        
-        $this->_utils->insertNewSite($site, $terrain);
-    }
-    
-    public function removeSite($site, $terrain) {
-        $site = strtoupper($site);
-        $terrain = strtoupper($terrain);
-        
-        $this->_utils->removeSite($site, $terrain);
-    }
-    
     // COMPETITIONS
+
     public function newCompetition($nom_compet, $importance=1) {
         $nom_compet = strtoupper($nom_compet);
         
@@ -36,13 +22,51 @@ class UtilsControler {
     public function removeCompetition($nom_compet) {
         $nom_compet = strtoupper($nom_compet);
         
-        $this->_utils->removeCompetition($nom_compet);
-        
+        $this->_utils->removeCompetition($nom_compet);  
     }
 
     public function getCompetition() {
 	
 	return $this->_utils->getCompetition();
+    }
+
+    // MATCHS
+
+    public function newMatch($date, $categorie, $competition, $equipe, $equipe_adv, $heure, $site, $terrain) {
+
+        $this->_utils->insertNewMatch($date, $categorie, $competition, $equipe, $equipe_adv, $heure, $site, $terrain); 
+    }
+
+    public function removeMatch($compet, $categorie, $equipe, $adv, $date) {
+        
+        $this->_utils->removeMatch($compet, $categorie, $equipe, $adv, $date);
+    }
+
+    public function getMatch() {
+	
+	return $this->_utils->getMatch();
+    }
+
+    public function getSpecificMatch($date) {
+	
+	return $this->_utils->getSpecificMatch($date);
+    }	
+
+    public function getDate() {
+	
+	return $this->_utils->getDate();
+    }
+
+    // CONVOCATIONS
+
+    public function newConvocation($date) {
+
+        $this->_utils->insertNewConvocation($date); 
+    }
+
+    public function getConvocation() {
+	
+	return $this->_utils->getConvocation();
     }
     
 }

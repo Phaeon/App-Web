@@ -10,11 +10,21 @@ let absences = document.querySelector('#absences');
 let calendrier = document.querySelector('#calendrier');
 let effectif = document.querySelector('#effectif');
 
-accueil.hidden = false;
-convocations.hidden = true;
+/***** Affichage *****/
+
+accueil.hidden = true;
+convocations.hidden = false;
 absences.hidden = true;
 calendrier.hidden = true;
 effectif.hidden = true;
+
+btn_accueil.style.backgroundColor = '#d8d8d8';
+btn_convocations.style.backgroundColor = '#9b9b9b';
+btn_absences.style.backgroundColor = '#d8d8d8';
+btn_calendrier.style.backgroundColor = '#d8d8d8';
+btn_effectif.style.backgroundColor = '#d8d8d8';
+
+/*****/
 
 btn_accueil.addEventListener("click",page_accueil);
 

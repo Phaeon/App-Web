@@ -36,22 +36,18 @@ class Router {
                     
                     if ($_POST['eff'] == "Enregistrer") {
 
-			$equipe = preg_split('/-/',$_POST['equipe_ajout']);
-
-                        $this->_playCtrl->newPlayer($_POST['nom_ajout'], $_POST['prenom_ajout'], $_POST['licence_ajout'],$equipe[0],$equipe[1]);
+                        $this->_playCtrl->newPlayer($_POST['nom_ajout'], $_POST['prenom_ajout'], $_POST['licence_ajout'],$_POST['categorie_ajout']);
                     }
                     
                     $this->_connCtrl->admin();
-		// Dans le cas d'un changement d'équipe de joueur
+		// Dans le cas d'un changement de catégorie de joueur
 		} else if(!empty($_POST['nom_changement'])) {
 
 		    if ($_POST['eff'] == "Changer") {
 
 			$joueur_chang = preg_split('/ /',$_POST['nom_changement']);
 
-			$equipe = preg_split('/-/',$_POST['equipe_changement']);
-
-                        $this->_playCtrl->changePlayer($joueur_chang[0], $joueur_chang[1], $equipe[0], $equipe[1]);
+                        $this->_playCtrl->changePlayer($joueur_chang[0], $joueur_chang[1], $_POST['categorie_changement']);
                     }
                     
 		    $this->_connCtrl->admin();  
@@ -124,29 +120,107 @@ class Router {
 		    }
                     
                     $this->_connCtrl->admin();
-                } else if (!empty($_POST['gest_compet_nom'])) {
-                    
-                    if ($_POST['gest_compet_button'] == 'supp_compet') $this->_utils->removeCompetition($_POST['gest_compet_nom']);
-                    else $this->_playCtrl->newCompetition($_POST['gest_compet_nom'], $_POST['gest_compet_imp']);
-                    
-                    $this->_connCtrl->admin();
-                    
-                // Dans le cas d'un ajout/retrait de match
-                } else if (!empty($_POST['cal_cate']) && !empty($_POST['cal_compet']) && !empty($_POST['cal_equi']) && !empty($_POST['cal_equi_adv']) && !empty($_POST['cal_date']) && !empty($_POST['cal_heureH']) && !empty($_POST['cal_heureM'])) {
-                    
-                    if ($_POST['cal_button'] == 'supp_cal') $this->_utils->removeMatch($_POST['cal_date'], $_POST['cal_cate'], $_POST['cal_compet'], $_POST['cal_equi'], $_POST['cal_equi_adv'], $_POST['cal_heureH'], $_POST['cal_heureM']);
-                    else $this->_playCtrl->newCompetition($_POST['cal_date'], $_POST['cal_cate'], $_POST['cal_compet'], $_POST['cal_equi'], $_POST['cal_equi_adv'], $_POST['cal_heureH'], $_POST['cal_heureM'], $_POST['cal_site'], $_POST['cal_terrain']);
+                // Dans le cas d'un ajout de match
+                } else if (!empty($_POST['equipe_match'])) {
+
+                    if ($_POST['match'] == 'Enregistrer') {
+
+			$equipe = preg_split('/-/',$_POST['equipe_match']);
+
+			$this->_utilsCtrl->newMatch($_POST['date_match'],$equipe[1],$_POST['compet_match'], $equipe[0], $_POST['adv_match'],$_POST['horaire_match'],"Site","Terrain");
+		    }
                     
                     $this->_connCtrl->admin();
-                    
-                // Dans le cas d'une nouvelle convocation (A MODIFIER EN FONCTION DE LA GENERATION DU FORMULAIRE)
-                } else if (!empty($_POST['conv_cate']) && !empty($_POST['conv_date']) && !empty($_POST['conv_compet']) && !empty($_POST['conv_equi_adv']) && !empty($_POST['conv_site']) && !empty($_POST['conv_terrain']) && !empty($_POST['conv_heure'])) {
-                    
-                    if ($_POST['cal_button'] == 'supp_cal') $this->_utils->removeMatch($_POST['conv_date'], $_POST['conv_compet'], $_POST['conv_equi_adv'], $_POST['conv_heureH'], $_POST['conv_heureM'], $_POST['conv_equi']);
-                    else $this->_playCtrl->newCompetition($_POST['conv_date'], $_POST['conv_cate'], $_POST['conv_compet'], $_POST['conv_equi_adv'], $_POST['conv_site'], $_POST['conv_terrain'], $_POST['conv_rdv'], $_POST['conv_heureH'], $_POST['conv_heureM'], $_POST['conv_equi']);
+		// Dans le cas d'un retrait de match
+                } else if (!empty($_POST['match_retrait'])) {
+
+                    if ($_POST['match'] == 'Supprimer') {
+
+			$match = preg_split('/-/',$_POST['match_retrait']);
+
+			$this->_utilsCtrl->removeMatch($match[0],$match[1],$match[2],$match[3],"$match[4]-$match[5]-$match[6]");
+		    }
                     
                     $this->_connCtrl->admin();
-                    
+                // Dans le cas d'un affichage de matchs pour faire une convocation
+                } else if (!empty($_POST['date_rencontre'])) {
+
+                    if ($_POST['selection'] == 'Sélectionner') {
+
+			$date = $_POST['date_rencontre'];
+
+			$this->_connCtrl->admin_convoc($date);
+		    }
+                // Dans le cas d'une publication de convocation
+                } else if (!empty($_POST['Publier'])) {
+
+                	$joueurs_presents = $_SESSION["joueurs_presents"];
+			$matchs = [];
+
+			foreach($joueurs_presents as $joueur)
+			{
+				if(isset($_POST["$joueur[0]-$joueur[1]"]))
+				{
+					$match = $_POST["$joueur[0]-$joueur[1]"];
+
+					if(!array_key_exists("$match",$matchs))
+					{
+						$matchs["$match"] = ["$joueur[0] $joueur[1]"];
+					}
+					else
+					{
+						array_push($matchs["$match"],"$joueur[0] $joueur[1]");
+					}
+				}
+				else
+				{
+					if(!array_key_exists("exempt",$matchs))
+					{
+						$matchs["exempt"] = ["$joueur[0] $joueur[1]"];
+					}
+					else
+					{
+						array_push($matchs["exempt"],"$joueur[0] $joueur[1]");
+					}
+				}
+			}
+
+			$nom = $_SESSION["date_convocation"];
+
+			$fichier = fopen("views/convocations/$nom.html",'w+');
+
+			fwrite($fichier,"<!doctype html>\n<html lang=\"fr\">\n<head>\n\t<meta charset=\"utf-8\">\n\t<title>Titre de la page</title>\n</head>\n\n<body>\n");
+			
+			foreach($matchs as $match => $joueurs)
+			{
+				if($match != "exempt")
+				{
+					fwrite($fichier,"<div>$match</div><br><br><ul>\n\n");
+
+					foreach($joueurs as $joueur)
+					{
+						fwrite($fichier,"<li>$joueur</li><br>\n");
+					}
+
+					fwrite($fichier,"</ul><br>\n");
+				}
+			}
+
+			fwrite($fichier,"<div>Exempt</div><br><br><ul>\n");
+
+			if(array_key_exists("exempt",$matchs))
+			{
+				foreach($matchs["exempt"] as $joueur)
+				{
+					fwrite($fichier,"<li>$joueur</li><br>\n");
+				}
+			}
+
+			fwrite($fichier,"</ul></body>\n</html>\n");
+
+			$this->_utilsCtrl->newConvocation($nom);
+
+			$this->_connCtrl->admin();
                     
                 } else if (!empty($_POST['deco'])) {
                     session_destroy();

@@ -9,6 +9,36 @@ class PlayerControler {
     public function __construct() {
         $this->_player = new PlayerModel();
     }
+
+    // Gestion des joueurs
+
+    public function newPlayer($nom, $prenom, $licence, $categorie) {        
+        $nom = ucfirst(strtolower($nom));
+        $prenom = ucfirst(strtolower($prenom));
+	$categorie = strtoupper($categorie);
+        
+        $this->_player->newPlayer($nom, $prenom, $licence, $categorie);
+    }
+    
+    public function removePlayer($nom, $prenom) {
+        $nom = ucfirst(strtolower($nom));
+        $prenom = ucfirst(strtolower($prenom));
+        
+        $this->_player->removePlayer($nom, $prenom);
+    }
+
+    public function changePlayer($nom, $prenom,$categorie) {
+        $nom = ucfirst(strtolower($nom));
+        $prenom = ucfirst(strtolower($prenom));
+        
+        $this->_player->changePlayer($nom, $prenom,$categorie);
+    }
+
+    public function getPlayer() {
+	return $this->_player->getPlayer();
+    }
+
+    // Gestion des absents
     
     public function newAbsentPlayer($nom, $prenom, $raison) {
         $nom = ucfirst(strtolower($nom));
@@ -41,36 +71,16 @@ class PlayerControler {
         
         $this->_player->removeAbsentPlayer($nom, $prenom);
     }
-    
-    public function newPlayer($nom, $prenom, $licence, $equipe, $categorie) {        
-        $nom = ucfirst(strtolower($nom));
-        $prenom = ucfirst(strtolower($prenom));
-        $equipe = strtoupper($equipe);
-	$categorie = strtoupper($categorie);
-        
-        $this->_player->newPlayer($nom, $prenom, $licence, $equipe, $categorie);
-    }
-    
-    public function removePlayer($nom, $prenom) {
-        $nom = ucfirst(strtolower($nom));
-        $prenom = ucfirst(strtolower($prenom));
-        
-        $this->_player->removePlayer($nom, $prenom);
+
+    public function getAbsent() {
+	return $this->_player->getAbsent();
     }
 
-    public function changePlayer($nom, $prenom,$equipe,$categorie) {
-        $nom = ucfirst(strtolower($nom));
-        $prenom = ucfirst(strtolower($prenom));
-        
-        $this->_player->changePlayer($nom, $prenom,$equipe,$categorie);
+    public function getPresent() {
+	return $this->_player->getPresent();
     }
-	
-    public function playerExists($nom, $prenom) {
-        $nom = ucfirst(strtolower($nom));
-        $prenom = ucfirst(strtolower($prenom));
-        
-        return $this->_player->playerExists($nom, $prenom);
-    }
+
+    // Gestion des équipes
 
     public function newTeam($equipe, $categorie) {        
         $equipe = strtoupper($equipe);
@@ -85,22 +95,16 @@ class PlayerControler {
         
         $this->_player->removeTeam($equipe, $categorie);
     }
-  
-    public function getPlayer() {
-	return $this->_player->getPlayer();
-    }
 
     public function getTeam() {
 	return $this->_player->getTeam();
     }
 
-    public function getAbsent() {
-	return $this->_player->getAbsent();
+    public function getCategorie() {
+	return $this->_player->getCategorie();
     }
 
-    public function getPresent() {
-	return $this->_player->getPresent();
-    }
+
 }
 
 ?>
