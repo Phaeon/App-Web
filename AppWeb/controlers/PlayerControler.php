@@ -64,6 +64,13 @@ class PlayerControler {
         
         $this->_player->changePlayer($nom, $prenom,$equipe,$categorie);
     }
+	
+    public function playerExists($nom, $prenom) {
+        $nom = ucfirst(strtolower($nom));
+        $prenom = ucfirst(strtolower($prenom));
+        
+        return $this->_player->playerExists($nom, $prenom);
+    }
 
     public function newTeam($equipe, $categorie) {        
         $equipe = strtoupper($equipe);
