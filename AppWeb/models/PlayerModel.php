@@ -93,6 +93,20 @@ class PlayerModel extends Model {
             echo "<script>alert('Erreur: Impossible de changer le joueur d'équipe.');</script>";
         } 
     }
+	
+    public function playerExists($nom, $prenom) {
+        $sql = "SELECT * FROM Effectifs WHERE nom = '$nom' AND prenom = '$prenom'";
+
+        try {
+            $req = $this->executeRequest($sql);
+            if ($req->rowCount() == 0) 
+                return false;
+            else return true;
+            
+        } catch (Exception $e) {
+            echo "<script>alert('Erreur: Impossible de vérifier l'existence du joueur.');</script>";
+        } 
+    }
 
     public function newTeam($equipe, $categorie) {
         $sql = "INSERT INTO Equipes VALUES ('$equipe','$categorie',0)";
