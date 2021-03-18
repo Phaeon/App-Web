@@ -127,7 +127,7 @@ class Router {
 
 			$equipe = preg_split('/-/',$_POST['equipe_match']);
 
-			$this->_utilsCtrl->newMatch($_POST['date_match'],$equipe[1],$_POST['compet_match'], $equipe[0], $_POST['adv_match'],$_POST['horaire_match'],"Site","Terrain");
+			$this->_utilsCtrl->newMatch($_POST['date_match'],$equipe[1],$_POST['compet_match'], $equipe[0], $_POST['adv_match'],$_POST['horaire_match'],$_POST['site_match'],$_POST['terrain_match']);
 		    }
                     
                     $this->_connCtrl->admin();
@@ -196,9 +196,9 @@ class Router {
 
                     if ($_POST['match'] == 'Supprimer') {
 
-			$match = preg_split('/-/',$_POST['match_retrait']);
+			$match = preg_split('/;/',$_POST['match_retrait']);
 
-			$this->_utilsCtrl->removeMatch($match[0],$match[1],$match[2],$match[3],"$match[4]-$match[5]-$match[6]");
+			$this->_utilsCtrl->removeMatch($match[0],$match[1],$match[2],$match[3],$match[4]);
 		    }
                     
                     $this->_connCtrl->admin();
@@ -251,7 +251,7 @@ class Router {
 
 			$csv = fopen("views/convocations/$nom.csv",'w+');
 
-			fwrite($fichier,"<!doctype html>\n<html lang=\"fr\">\n<head>\n\t<meta charset=\"utf-8\">\n\t<title>Titre de la page</title>\n</head>\n\n<body>\n");
+			fwrite($fichier,"<!doctype html>\n<html lang=\"fr\">\n<head>\n\t<meta charset=\"utf-8\">\n\t<title>Convocation</title>\n</head>\n\n<body>\n");
 			
 			foreach($matchs as $match => $joueurs)
 			{

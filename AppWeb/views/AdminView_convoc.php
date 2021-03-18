@@ -34,28 +34,51 @@
 		</table>
 		</div>
 
+		<?php
+			$matchs = $_SESSION['match'];
+
+			$tableau = "";
+			
+			foreach($matchs as $match)
+			{
+				$tab_match = "['$match[0]','$match[3]','$match[1]','$match[4]']";
+				if($tableau == "")
+				{
+					$tableau = $tab_match;
+				}
+				else
+				{
+					$tableau = $tableau.",".$tab_match;
+				}
+			}
+
+			$tableau = "[".$tableau."]";
+
+			echo "<script> let matchs = $tableau;</script>";
+		?>
+
 		<div>
 		<table class="match">
 			<tr class="match">
 				<td class="bouton_arriere" rowspan="3"><<</td>
-				<td class="match-date" colspan="3">03-01-2021</td>
-				<td class="match_date_centre" colspan="3">15-01-2021</td>
-				<td class="match-date" colspan="3">20-02-2021</td>
+				<td class="match-date" colspan="3"><?php $match1 = $_SESSION['match'][0]; echo "$match1[0]"; ?></td>
+				<td class="match_date_centre" colspan="3"><?php $match2 = $_SESSION['match'][1]; echo "$match2[0]"; ?></td>
+				<td class="match-date" colspan="3"><?php $match3 = $_SESSION['match'][2]; echo "$match3[0]"; ?></td>
 				<td class="bouton_avant" rowspan="3">>></td>
 			</tr>
 
 			<tr class="match">
-				<td class="match">Cholet</td>
+				<td class="match"><?php $match1 = $_SESSION['match'][0]; echo "$match1[3] - $match1[1]"; ?></td>
 				<td class="tiret"></td>
-				<td class="match-droit">Trélazé</td>
+				<td class="match-droit"><?php $match1 = $_SESSION['match'][0]; echo "$match1[4]"; ?></td>
 
-				<td class="match_centre">Bouchemaine</td>
+				<td class="match_centre"><?php $match2 = $_SESSION['match'][1]; echo "$match2[3] - $match2[1]"; ?></td>
 				<td class="tiret_centre"></td>
-				<td class="match_droit_centre">Saint-Martin</td>
+				<td class="match_droit_centre"><?php $match2 = $_SESSION['match'][1]; echo "$match2[4]"; ?></td>
 
-				<td class="match">Ecouflant</td>
+				<td class="match"><?php $match3 = $_SESSION['match'][2]; echo "$match3[3] - $match3[1]"; ?></td>
 				<td class="tiret"></td>
-				<td class="match-droit">Candé</td>
+				<td class="match-droit"><?php $match3 = $_SESSION['match'][2]; echo "$match3[4]"; ?></td>
 			</tr>
 
 			<tr class="match">
@@ -144,7 +167,8 @@
 						{
 							if($joueur[3] == $record[1])
 							{
-								echo"<label>$joueur[0] $joueur[1] </label><input type=\"radio\" name=\"$joueur[0]-$joueur[1]\" value=\"$record[2] $record[1] - $record[3] contre $record[4]\"><br>";
+
+								echo"<label>$joueur[0] $joueur[1] </label><input type=\"radio\" name=\"$joueur[0]-$joueur[1]\" value=\"$record[2] : $record[3] contre $record[4]\"><br>";
 							}
 						}
 
@@ -379,7 +403,7 @@
 
 					foreach($matchs as $record)
 					{
-						echo "<option value=\"$record[2]-$record[1]-$record[3]-$record[4]-$record[0]\">$record[2] $record[1] - $record[3] / $record[4] - $record[0]</option>";
+						echo "<option value=\"$record[2];$record[1];$record[3];$record[4];$record[0]\">$record[2] - $record[3] / $record[4] - $record[0]</option>";
 					}
 	
 					?>
