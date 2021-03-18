@@ -1,4 +1,4 @@
-# Application Web - [NOM APPLI]
+# Application Web - Convocations sportives
 
 Ceci est une application créée par deux étudiants de l'université d'Angers, dans le cadre de l'UE Développement Web.
 
