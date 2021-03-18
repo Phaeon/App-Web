@@ -131,6 +131,66 @@ class Router {
 		    }
                     
                     $this->_connCtrl->admin();
+		// Dans le cas d'un ajout de plusieurs matchs
+		} else if(isset($_FILES['fichier'])){
+        
+        		$file_name = $_FILES['fichier']['name'];
+      			$file_size = $_FILES['fichier']['size'];
+      			$file_ext = strtolower(explode('.',$file_name)[array_key_last(explode('.',$file_name))]);
+      
+        		// On vérifie si c'est bien un fichier CSV
+      			if($file_ext != "csv")
+			{
+         			echo "<script>alert('Extension non autorisé, veuillez sélectionner un fichier CSV.')</script>";
+         			exit();
+      			}
+
+			// On vérifie si le fichier n'est pas trop grand
+      			if($file_size > 2097152)
+			{
+         			echo "<script>alert('Fichier trop volumineux (> 2 MB)')</script>";
+         			exit();
+      			}
+        
+        		$file_tmp = $_FILES['fichier']['tmp_name'];
+        
+        		// Importer les données du CSV
+        		if(file_exists($file_tmp) )
+			{
+            			if($id_file=fopen($file_tmp,"r"))
+				{
+                			flock($id_file,3);
+              
+                			// Analyser chaque ligne
+                			while($tab=fgetcsv($id_file,0,";") )
+					{
+                	    			// Dans le cas où le nombre de champs n'est pas valide
+                	    			if (count($tab) < 8)
+						{
+                	        			exit();
+                	    			}
+
+                	    			$date = $tab[0];
+						$categorie = $tab[1];
+                	    			$competition = $tab[2];
+                	    			$equipe = $tab[3];
+                	    			$adversaire = $tab[4];
+                	    			$heure = $tab[5];
+						$site = $tab[6];
+						$terrain = $tab[7];
+
+               	        			$this->_utilsCtrl->NewMatch($date,$categorie,$competition,$equipe,$adversaire,$heure,$site,$terrain);
+                			}
+                	
+                			fclose($id_file);
+            			}
+        		}
+			else
+			{
+            			echo "Fichier inaccessible.";
+        		}
+                    
+                    	$this->_connCtrl->admin();
 		// Dans le cas d'un retrait de match
                 } else if (!empty($_POST['match_retrait'])) {
 
@@ -189,6 +249,8 @@ class Router {
 
 			$fichier = fopen("views/convocations/$nom.html",'w+');
 
+			$csv = fopen("views/convocations/$nom.csv",'w+');
+
 			fwrite($fichier,"<!doctype html>\n<html lang=\"fr\">\n<head>\n\t<meta charset=\"utf-8\">\n\t<title>Titre de la page</title>\n</head>\n\n<body>\n");
 			
 			foreach($matchs as $match => $joueurs)
@@ -197,22 +259,28 @@ class Router {
 				{
 					fwrite($fichier,"<div>$match</div><br><br><ul>\n\n");
 
+					fwrite($csv,"$match;\n");
+
 					foreach($joueurs as $joueur)
 					{
 						fwrite($fichier,"<li>$joueur</li><br>\n");
+						fwrite($csv,"$joueur;\n");
 					}
 
 					fwrite($fichier,"</ul><br>\n");
+					fwrite($csv,"\n");
 				}
 			}
 
 			fwrite($fichier,"<div>Exempt</div><br><br><ul>\n");
+			fwrite($csv,"Exempt;\n");
 
 			if(array_key_exists("exempt",$matchs))
 			{
 				foreach($matchs["exempt"] as $joueur)
 				{
 					fwrite($fichier,"<li>$joueur</li><br>\n");
+					fwrite($csv,"$joueur;\n");
 				}
 			}
 

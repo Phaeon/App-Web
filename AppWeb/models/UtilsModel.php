@@ -6,8 +6,8 @@ class UtilsModel extends Model {
     
     // GESTION DES COMPETITIONS
 
-    public function insertNewCompetition($nom_compet, $importance) {
-        $sql = "INSERT INTO Competitions VALUES ('$nom_compet', '$importance')";
+    public function insertNewCompetition($nom_compet) {
+        $sql = "INSERT INTO Competitions VALUES ('$nom_compet')";
 
         try {
             $this->executeRequest($sql);
@@ -23,7 +23,7 @@ class UtilsModel extends Model {
         
         try {
             $this->executeRequest($sql);
-            echo "<script>alert(".$nom_compet." a été supprimée avec succès.');</script>";
+            echo "<script>alert('".$nom_compet." a été supprimée avec succès.');</script>";
         } catch (Exception $e) {
             echo "<script>alert('Erreur : impossible de retirer la compétition.');</script>";
         }

@@ -86,7 +86,7 @@
 
 				foreach($convocations as $record)
 				{
-					echo "<tr class=\"convocation\">\n\t<td class=\"convocation\">$record[0]</td>\n\t<td class=\"convocation\">\n\t\t<a href=\"views/convocations/$record[0].html\" target=\"_blank\">Convocation du $record[0]</a>\n\t</td>\n</tr>";
+					echo "<tr class=\"convocation\">\n\t<td class=\"convocation\">$record[0]</td>\n\t<td class=\"convocation\">\n\t\t<a href=\"views/convocations/$record[0].html\" target=\"_blank\">Convocation du $record[0]</a>\n\t</td>\n\t<td class=\"image\">\n\t\t<a href=\"views/convocations/$record[0].csv\" target=\"_blank\"><img class=\"csv\" src=\"views/images/csv.jpg\"></a>\n\t</td></tr>";
 				}
 			?>
 		</table>
@@ -311,6 +311,18 @@
 				<input type="time" name="horaire_match" required><br>
 
 				<button type="submit" name="match" value="Enregistrer">Enregistrer</button>
+
+				</fieldset>
+			</form>
+
+			<form method="post" enctype="multipart/form-data">
+				<fieldset>
+				<legend>Enregistrer plusieurs matchs via un fichier .csv</legend>
+
+				<label>Choisir un fichier :</label>
+				<input type="file" name="fichier" /><br>
+
+   				<button name="match" type="submit" value="Enregistre-plusieurs">Enregistrer</button>
 
 				</fieldset>
 			</form>
