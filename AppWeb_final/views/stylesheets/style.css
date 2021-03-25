@@ -297,8 +297,6 @@ td.effectifs
 
 
 
-
-
 button .login {
     font-weight: 300;
     text-transform: uppercase;
@@ -306,6 +304,7 @@ button .login {
     width: 40%;
     margin-left: 3px
 }
+
 
 button:not(.login) {
     font-weight: 300;
@@ -325,13 +324,6 @@ fieldset {
     text-align: center;
 	padding-top: 30px;
 	padding-BOTTOM: 30px;
-}
-
-label {
-    color: #333;
-	font-family: "Commic Sans MS", sans-serif;
-	width: 350px;
-	float: left;
 }
 
 select {
