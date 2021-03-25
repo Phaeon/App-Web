@@ -346,11 +346,13 @@ class Router {
 
 			foreach($matchs as $match => $joueurs)
 			{
-				if($match != "exempt")
+				$match = preg_split('/;/',$match);
+
+				if($match[0] != "exempt")
 				{
 					foreach($joueurs as $joueur)
 					{
-						$this->_convCtrl->saveConvocation($date,$joueur,$match);
+						$this->_convCtrl->saveConvocation($date,$joueur,$match[0]);
 					}
 				}
 			}
