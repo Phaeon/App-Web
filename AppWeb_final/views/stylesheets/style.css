@@ -2,7 +2,7 @@ body {
 	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
 	background-size: 400% 400%;
 	animation: gradient 15s ease infinite;
-	text-align: center;
+    text-align: center;
 }
 
 @keyframes gradient {
@@ -293,4 +293,47 @@ td.effectifs
 	font-size : 1.25em;
 	text-align : center;
 	border : solid;
+}
+
+
+
+
+
+button .login {
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    width: 40%;
+    margin-left: 3px
+}
+
+button:not(.login) {
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    width: 80%;
+    margin-left: 3px;
+}
+
+legend {
+    text-align: center;
+	font-weight: 30;
+	font-family: "copperplate", fantasy;
+}
+
+fieldset {
+    text-align: center;
+	padding-top: 30px;
+	padding-BOTTOM: 30px;
+}
+
+label {
+    color: #333;
+	font-family: "Commic Sans MS", sans-serif;
+	width: 350px;
+	float: left;
+}
+
+select {
+    width: 40%;
 }
