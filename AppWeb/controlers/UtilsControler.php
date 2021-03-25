@@ -61,19 +61,6 @@ class UtilsControler {
 	
 	return $this->_utils->getDate();
     }
-
-    // CONVOCATIONS
-
-    public function newConvocation($date) {
-
-        $this->_utils->insertNewConvocation($date); 
-    }
-
-    public function getConvocation() {
-	
-	return $this->_utils->getConvocation();
-    }
-    
 }
 
 ?>

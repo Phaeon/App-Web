@@ -3,7 +3,6 @@
 require_once('controlers/HomeControler.php');
 require_once('controlers/ConnexionControler.php');
 require_once('controlers/PlayerControler.php');
-require_once('controlers/CalendarControler.php');
 require_once('controlers/ConvocControler.php');
 require_once('controlers/UtilsControler.php');
 require_once('views/View.php');
@@ -13,15 +12,13 @@ class Router {
     private $_mainCtrl; // OK
     private $_connCtrl; // OK
     private $_playCtrl; // OK
-    private $_calCtrl;
-    private $_convCtrl;
+    private $_convCtrl; // OK
     private $_utilsCtrl; // OK
 
     public function __construct() {
         $this->_mainCtrl = new HomeControler();
         $this->_connCtrl = new ConnexionControler();
         $this->_playCtrl = new PlayerControler();
-        $this->_calCtrl = new CalendarControler();
         $this->_convCtrl = new ConvocControler();
         $this->_utilsCtrl = new UtilsControler();
     }
@@ -306,7 +303,7 @@ class Router {
 			fwrite($fichier,"</ul></body>\n</html>\n");
 
 			$this->_convCtrl->clearConvocation($nom);
-			$this->_utilsCtrl->newConvocation($nom);
+			$this->_convCtrl->newConvocation($nom);
 
 			$this->_connCtrl->admin();
                 // Dans le cas d'un enregistrement de convocation

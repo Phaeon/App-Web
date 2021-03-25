@@ -48,7 +48,7 @@ class ConnexionControler {
 	$_SESSION['competition'] = $this->_utils->getCompetition()->fetchAll(PDO::FETCH_NUM);
 	$_SESSION['match'] = $this->_utils->getMatch()->fetchAll(PDO::FETCH_NUM);
 	$_SESSION['date'] = $this->_utils->getDate()->fetchAll(PDO::FETCH_NUM);
-	$_SESSION['convocation'] = $this->_utils->getConvocation()->fetchAll(PDO::FETCH_NUM);
+	$_SESSION['convocation'] = $this->_convoc->getConvocation()->fetchAll(PDO::FETCH_NUM);
 
         // Créer une nouvelle vue admin
         require_once('views/AdminView.php');
@@ -64,7 +64,7 @@ class ConnexionControler {
 	$_SESSION['competition'] = $this->_utils->getCompetition()->fetchAll(PDO::FETCH_NUM);
 	$_SESSION['match'] = $this->_utils->getMatch()->fetchAll(PDO::FETCH_NUM);
 	$_SESSION['date'] = $this->_utils->getDate()->fetchAll(PDO::FETCH_NUM);
-	$_SESSION['convocation'] = $this->_utils->getConvocation()->fetchAll(PDO::FETCH_NUM);
+	$_SESSION['convocation'] = $this->_convoc->getConvocation()->fetchAll(PDO::FETCH_NUM);
 	$_SESSION['specific_matchs'] = $this->_utils->getSpecificMatch($date)->fetchAll(PDO::FETCH_NUM);
 	$_SESSION['convoc_enregistree'] = $this->_convoc->getConvocationEnregistree($date)->fetchAll(PDO::FETCH_NUM);
 
