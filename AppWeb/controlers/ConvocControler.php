@@ -10,35 +10,33 @@ class ConvocControler {
         $this->_conv = new ConvocModel();
     }
     
-    public function newConvocation($dateMatch, $categorie, $compet, $equipeAdv, $site, $terrain, $heureH, $heureM, $rdv='', $equipe) {
-        $categorie = strtoupper($categorie);
-        $compet = strtoupper($compet);
-        $equipe = strtoupper($equipe);
-        $equipeAdv = strtoupper($equipeAdv);
-        $site = strtoupper($site);
-        $terrain = strtoupper($terrain);
-        
-        // CHECK DATE FORMAT
-        $dateMatch;
-        
-        // FORMAT TIME
-        $heure = "$heureH:$heureM";
-        
-        $this->_cal->insertNewConvoc($dateMatch, $categorie, $compet, $equipeAdv, $site, $terrain, $heure, $rdv='', $equipe);
+    // CONVOCATIONS
+
+    public function newConvocation($date) {
+
+        $this->_conv->insertNewConvocation($date); 
     }
-    
-    public function removeConvocation($dateMatch, $compet, $equipeAdv, $heureH, $heureM, $equipe) {
-        $compet = strtoupper($compet);
-        $equipe = strtoupper($equipe);
-        $equipeAdv = strtoupper($equipeAdv);
-        
-        // CHECK DATE FORMAT
-        $dateMatch;
-        
-        // FORMAT TIME
-        $heure = "$heureH:$heureM";
-        
-        $this->_cal->removeConvoc($dateMatch, $compet, $equipeAdv, $heure, $equipe);
+
+    public function getConvocation() {
+	
+	return $this->_conv->getConvocation();
+    }
+
+    public function getConvocationEnregistree($date) {
+
+	return $this->_conv->getConvocationEnregistree($date);
+
+    }
+
+    public function clearConvocation($date) {
+	
+	$this->_conv->clearConvocation($date);
+
+    }
+
+    public function saveConvocation($date,$joueur,$match) {
+
+	$this->_conv->saveConvocation($date,$joueur,$match);
     }
     
 }

@@ -37,6 +37,11 @@ class UtilsControler {
         $this->_utils->insertNewMatch($date, $categorie, $competition, $equipe, $equipe_adv, $heure, $site, $terrain); 
     }
 
+    public function insertScore($date, $categorie, $competition, $equipe, $equipe_adv,$domicile, $exterieur) {
+
+	$this->_utils->insertScore($date, $categorie, $competition, $equipe, $equipe_adv,$domicile, $exterieur);
+    }
+
     public function removeMatch($compet, $categorie, $equipe, $adv, $date) {
         
         $this->_utils->removeMatch($compet, $categorie, $equipe, $adv, $date);

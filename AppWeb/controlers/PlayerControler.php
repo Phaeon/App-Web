@@ -40,7 +40,7 @@ class PlayerControler {
 
     // Gestion des absents
     
-    public function newAbsentPlayer($nom, $prenom, $raison) {
+    public function newAbsentPlayer($nom, $prenom, $raison,$date) {
         $nom = ucfirst(strtolower($nom));
         $prenom = ucfirst(strtolower($prenom));
         $raisonC = '';
@@ -62,7 +62,7 @@ class PlayerControler {
                 break;
         }
         
-        $this->_player->insertAbsentPlayer($nom, $prenom, $raison, $raisonC);
+        $this->_player->insertAbsentPlayer($nom, $prenom, $raison, $raisonC,$date);
     }
     
     public function removeAbsentPlayer($nom, $prenom) {
@@ -76,8 +76,8 @@ class PlayerControler {
 	return $this->_player->getAbsent();
     }
 
-    public function getPresent() {
-	return $this->_player->getPresent();
+    public function getPresent($date) {
+	return $this->_player->getPresent($date);
     }
 
     // Gestion des équipes

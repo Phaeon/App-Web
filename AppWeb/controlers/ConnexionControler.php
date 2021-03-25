@@ -12,12 +12,14 @@ class ConnexionControler {
     private $_main;
     private $_play;
     private $_utils;
+    private $_convoc;
     
     public function __construct() {
         $this->_conn = new ConnexionModel();
         $this->_main = new HomeControler();
 	$this->_play = new PlayerControler();
 	$this->_utils = new UtilsControler();
+	$this->_convoc = new ConvocControler();
     }
     
     public function connexion($login, $mdp) {
@@ -43,7 +45,6 @@ class ConnexionControler {
 	$_SESSION['categorie'] = $this->_play->getCategorie()->fetchAll(PDO::FETCH_NUM);
 	$_SESSION['equipes'] = $this->_play->getTeam()->fetchAll(PDO::FETCH_NUM);
 	$_SESSION['absents'] = $this->_play->getAbsent()->fetchAll(PDO::FETCH_NUM);
-	$_SESSION['joueurs_presents'] = $this->_play->getPresent()->fetchAll(PDO::FETCH_NUM);
 	$_SESSION['competition'] = $this->_utils->getCompetition()->fetchAll(PDO::FETCH_NUM);
 	$_SESSION['match'] = $this->_utils->getMatch()->fetchAll(PDO::FETCH_NUM);
 	$_SESSION['date'] = $this->_utils->getDate()->fetchAll(PDO::FETCH_NUM);
@@ -59,12 +60,13 @@ class ConnexionControler {
 	$_SESSION['categorie'] = $this->_play->getCategorie()->fetchAll(PDO::FETCH_NUM);
 	$_SESSION['equipes'] = $this->_play->getTeam()->fetchAll(PDO::FETCH_NUM);
 	$_SESSION['absents'] = $this->_play->getAbsent()->fetchAll(PDO::FETCH_NUM);
-	$_SESSION['joueurs_presents'] = $this->_play->getPresent()->fetchAll(PDO::FETCH_NUM);
+	$_SESSION['joueurs_presents'] = $this->_play->getPresent($date)->fetchAll(PDO::FETCH_NUM);
 	$_SESSION['competition'] = $this->_utils->getCompetition()->fetchAll(PDO::FETCH_NUM);
 	$_SESSION['match'] = $this->_utils->getMatch()->fetchAll(PDO::FETCH_NUM);
 	$_SESSION['date'] = $this->_utils->getDate()->fetchAll(PDO::FETCH_NUM);
 	$_SESSION['convocation'] = $this->_utils->getConvocation()->fetchAll(PDO::FETCH_NUM);
 	$_SESSION['specific_matchs'] = $this->_utils->getSpecificMatch($date)->fetchAll(PDO::FETCH_NUM);
+	$_SESSION['convoc_enregistree'] = $this->_convoc->getConvocationEnregistree($date)->fetchAll(PDO::FETCH_NUM);
 
         // Créer une nouvelle vue admin pour créer une convocation
         require_once('views/AdminView_convoc.php');

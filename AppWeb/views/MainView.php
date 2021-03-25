@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 	<meta charset="utf-8">
-	<title>Club XXX</title>
+	<title>Site du FC Belle-Beille</title>
 	<link rel="stylesheet" type="text/css" href="views/stylesheets/style.css">
 
 	<script src="views/scripts_js/match.js" defer></script>
@@ -12,7 +12,7 @@
 		<div id="barre">
 		<table>
 			<tr>
-				<td>Club de Sport</td>
+				<td>FC Belle-Beille</td>
 				<td>
 					<form name="login" method="post" id="login">
 						<label for="user">Identifiant : </label>
@@ -21,35 +21,58 @@
 						<label for="password">Mot de passe : </label>
 						<input class="login" type="password" name="password">
 
-						<input class="login" type="submit" value="Connexion">
+						<button class="login" type="submit" value="Connexion">Connexion</button>
 					</form>
 				</td>
 			</tr>
 		</table>
 		</div>
 
+		<?php
+			$matchs = $_SESSION['match'];
+
+			$tableau = "";
+			
+			foreach($matchs as $match)
+			{
+				$tab_match = "['$match[0]','$match[3]','$match[1]','$match[4]']";
+				if($tableau == "")
+				{
+					$tableau = $tab_match;
+				}
+				else
+				{
+					$tableau = $tableau.",".$tab_match;
+				}
+			}
+
+			$tableau = "[".$tableau."]";
+
+			echo "<script> let matchs = $tableau;</script>";
+		?>
+
 		<div>
 		<table class="match">
 			<tr class="match">
 				<td class="bouton_arriere" rowspan="3"><<</td>
-				<td class="match-date" colspan="3">03-01-2021</td>
-				<td class="match_date_centre" colspan="3">15-01-2021</td>
-				<td class="match-date" colspan="3">20-02-2021</td>
+				<td class="match-date" colspan="3"><?php if(count($_SESSION['match']) >= 1){$match1 = $_SESSION['match'][0]; echo "$match1[0]";} ?></td>
+				<td class="match_date_centre" colspan="3"><?php if(count($_SESSION['match']) >= 2){$match2 = $_SESSION['match'][1]; echo "$match2[0]";} ?></td>
+				<td class="match-date" colspan="3"><?php if(count($_SESSION['match']) >= 3){$match3 = $_SESSION['match'][2]; echo "$match3[0]";} ?></td>
 				<td class="bouton_avant" rowspan="3">>></td>
 			</tr>
 
 			<tr class="match">
-				<td class="match">Cholet</td>
+				<td class="match"><?php if(count($_SESSION['match']) >= 1){$match1 = $_SESSION['match'][0]; echo "$match1[3] - $match1[1]";} ?></td>
 				<td class="tiret"></td>
-				<td class="match-droit">Trélazé</td>
+				<td class="match-droit"><?php if(count($_SESSION['match']) >= 1){$match1 = $_SESSION['match'][0]; echo "$match1[4]";} ?></td>
 
-				<td class="match_centre">Bouchemaine</td>
+				<td class="match_centre"><?php if(count($_SESSION['match']) >= 2){$match2 = $_SESSION['match'][1]; echo "$match2[3] - $match2[1]";} ?></td>
 				<td class="tiret_centre"></td>
-				<td class="match_droit_centre">Saint-Martin</td>
+				<td class="match_droit_centre"><?php if(count($_SESSION['match']) >= 2){$match2 = $_SESSION['match'][1]; echo "$match2[4]";} ?></td>
 
-				<td class="match">Ecouflant</td>
+				<td class="match"><?php if(count($_SESSION['match']) >= 3){$match3 = $_SESSION['match'][2]; echo "$match3[3] - $match3[1]";} ?></td>
 				<td class="tiret"></td>
-				<td class="match-droit">Candé</td>
+				<td class="match-droit"><?php if(count($_SESSION['match']) >= 3){$match3 = $_SESSION['match'][2]; echo "$match3[4]";} ?></td>
 			</tr>
 
 			<tr class="match">
@@ -67,45 +90,22 @@
 			</tr>
 		</table>
 		</div>
+<!-- PAGE ACCUEIL -->
 
-		<div id="page">
+		<div id="accueil">
 
 		<p id="titre">CONVOCATIONS</p>		
 
 		<table>
-			<tr class="convocation">
-				<td class="convocation">
-					20-02-2021
-				</td>
-				<td class="convocation">
-					Coupe régionale - Martigné VS Segré
-				</td>
-				<td class="image">
-					<img class="pdf" src="../../images/pdf.png">
-				</td>
-			</tr>
-			<tr class="convocation">
-				<td class="convocation">
-					14-03-2021
-				</td>
-				<td class="convocation">
-					Coupe de France - Angers VS Saumur
-				</td>
-				<td class="image">
-					<img class="pdf" src="images/pdf.png">
-				</td>
-			</tr>
-			<tr class="convocation">
-				<td class="convocation">
-					26-06-2021
-				</td>
-				<td class="convocation">
-					Coupe départementale - Avrillé VS Briollay
-				</td>
-				<td class="image">
-					<img class="pdf" src="images/pdf.png">
-				</td>
-			</tr>
+			<?php
+
+				$convocations = $_SESSION['convocation'];
+
+				foreach($convocations as $record)
+				{
+					echo "<tr class=\"convocation\">\n\t<td class=\"convocation\">$record[0]</td>\n\t<td class=\"convocation\">\n\t\t<a href=\"views/convocations/$record[0].html\" target=\"_blank\">Convocation du $record[0]</a>\n\t</td>\n\t<td class=\"image\">\n\t\t<a href=\"views/convocations/$record[0].csv\" target=\"_blank\"><img class=\"csv\" src=\"views/images/csv.jpg\"></a>\n\t</td></tr>";
+				}
+			?>
 		</table>
 		</div>
 </body>

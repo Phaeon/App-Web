@@ -1,6 +1,7 @@
 CREATE DATABASE IF NOT EXISTS convocations;
 
 DROP TABLE IF EXISTS Absences;
+DROP TABLE IF EXISTS Convocations_enregistrees;
 DROP TABLE IF EXISTS Convocations;
 DROP TABLE IF EXISTS Matchs;
 DROP TABLE IF EXISTS NonConvoques;
@@ -64,7 +65,7 @@ INSERT INTO Effectifs VALUES
 ('Lloris','Hugo','oui','SENIOR'),
 ('Giroud','Olivier','oui','SENIOR'),
 ('Pogba','Paul','oui','SENIOR'),
-('Kanté','N Golo','oui','SENIOR'),
+('Kanté','NGolo','oui','SENIOR'),
 ('Pavard','Benjamin','oui','SENIOR'),
 ('Matuidi','Blaise','oui','SENIOR'),
 ('Umtiti','Samuel','oui','SENIOR'),
@@ -80,6 +81,8 @@ CREATE TABLE Matchs (
     heure TIME,
     site VARCHAR(50),
     terrain VARCHAR(50),
+    domicile INT,
+    exterieur INT,
     PRIMARY KEY (date_m, categorie, competition, equipe, equipe_adv, heure),
     FOREIGN KEY (competition) REFERENCES Competitions(nom_compet),
     FOREIGN KEY (equipe, categorie) REFERENCES Equipes(nom_equipe, categorie)
@@ -91,12 +94,20 @@ CREATE TABLE Convocations (
     PRIMARY KEY (date_m)
 );
 
+CREATE TABLE Convocations_enregistrees (
+    date_m DATE,
+    joueur VARCHAR(100),
+    nom_match VARCHAR(100),
+    PRIMARY KEY (date_m, joueur)
+);
 
 CREATE TABLE Absences (
     nom VARCHAR(30),
     prenom VARCHAR(30),
     raison VARCHAR(15) NOT NULL CHECK (raison IN ('Absent', 'Blesse', 'Suspendu', 'Sans licence')),
     raison_court CHAR(1) NOT NULL CHECK (raison_court IN ('A', 'B', 'S', 'N')),
-    PRIMARY KEY (nom, prenom),
+    date_abs DATE,
+    PRIMARY KEY (nom, prenom,date_abs),
     FOREIGN KEY (nom, prenom) REFERENCES Effectifs(nom, prenom)
 );
+

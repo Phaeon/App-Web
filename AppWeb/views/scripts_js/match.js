@@ -76,11 +76,11 @@ function defilement_arriere()
 
 			// ensuite du score de l'équipe
 			
-			let temp = td_match[3].textContent;
+			let match_precedent_domicile = matchs[curseur][4];
 
 			td_match[3].textContent = td_match_centre[1].textContent;
 			td_match_centre[1].textContent = td_match[2].textContent;
-			td_match[2].textContent = temp;
+			td_match[2].textContent = match_precedent_domicile;
 
 			// ensuite de l'adversaire
 
@@ -92,11 +92,11 @@ function defilement_arriere()
 
 			// enfin du score de l'adversaire
 
-			temp = td_match_droit[3].textContent;
+			let match_precedent_exterieur = matchs[curseur][5];
 
 			td_match_droit[3].textContent = td_match_droit_centre[1].textContent;
 			td_match_droit_centre[1].textContent = td_match_droit[2].textContent;
-			td_match_droit[2].textContent = temp;
+			td_match_droit[2].textContent = match_precedent_exterieur;
 		}
 		else // sinon c'est qu'il y a deux blancs et que le gris est au centre
 		{
@@ -112,11 +112,11 @@ function defilement_arriere()
 			td_match[0].textContent = td_match_centre[0].textContent;
 			td_match_centre[0].textContent = match_precedent_equipe;
 
-			let temp = td_match_centre[3].textContent;
+			let match_precedent_domicile = matchs[curseur][4];
 
 			td_match_centre[3].textContent = td_match[1].textContent;
 			td_match[1].textContent = td_match_centre[2].textContent;
-			td_match_centre[2].textContent = temp;
+			td_match_centre[2].textContent = match_precedent_domicile;
 
 			let match_precedent_adversaire = matchs[curseur][3];
 
@@ -124,11 +124,11 @@ function defilement_arriere()
 			td_match_droit[0].textContent = td_match_droit_centre[0].textContent;
 			td_match_droit_centre[0].textContent = match_precedent_adversaire;
 
-			temp = td_match_droit_centre[3].textContent;
+			let match_precedent_exterieur = matchs[curseur][5];
 
 			td_match_droit_centre[3].textContent = td_match_droit[1].textContent;
 			td_match_droit[1].textContent = td_match_droit_centre[2].textContent;
-			td_match_droit_centre[2].textContent = temp;
+			td_match_droit_centre[2].textContent = match_precedent_exterieur;
 		}
 	}
 }
@@ -189,11 +189,11 @@ function defilement_avant()
 			td_match_centre[0].textContent = td_match[1].textContent;
 			td_match[1].textContent = match_suivant_equipe;
 
-			let temp = td_match[2].textContent;
+			let match_suivant_domicile = matchs[curseur+2][4];
 
 			td_match[2].textContent = td_match_centre[1].textContent;
 			td_match_centre[1].textContent = td_match[3].textContent;
-			td_match[3].textContent = temp;
+			td_match[3].textContent = match_suivant_domicile;
 
 			let match_suivant_adversaire = matchs[curseur+2][3];
 
@@ -201,11 +201,11 @@ function defilement_avant()
 			td_match_droit_centre[0].textContent = td_match_droit[1].textContent;
 			td_match_droit[1].textContent = match_suivant_adversaire;
 
-			temp = td_match_droit[2].textContent;
+			let match_suivant_exterieur = matchs[curseur+2][5];
 
 			td_match_droit[2].textContent = td_match_droit_centre[1].textContent;
 			td_match_droit_centre[1].textContent = td_match_droit[3].textContent;
-			td_match_droit[3].textContent = temp;
+			td_match_droit[3].textContent = match_suivant_exterieur;
 		}
 		else
 		{
@@ -221,11 +221,11 @@ function defilement_avant()
 			td_match[0].textContent = td_match_centre[1].textContent;
 			td_match_centre[1].textContent = match_suivant_equipe;
 
-			let temp = td_match_centre[2].textContent;
+			let match_suivant_domicile = matchs[curseur+2][4];
 
 			td_match_centre[2].textContent = td_match[1].textContent;
 			td_match[1].textContent = td_match_centre[3].textContent;
-			td_match_centre[3].textContent = temp;
+			td_match_centre[3].textContent = match_suivant_domicile;
 	
 			let match_suivant_adversaire = matchs[curseur+2][3];
 
@@ -233,11 +233,11 @@ function defilement_avant()
 			td_match_droit[0].textContent = td_match_droit_centre[1].textContent;
 			td_match_droit_centre[1].textContent = match_suivant_adversaire;
 
-			temp = td_match_droit_centre[2].textContent;
+			let match_suivant_exterieur = matchs[curseur+2][5];
 
 			td_match_droit_centre[2].textContent = td_match_droit[1].textContent;
 			td_match_droit[1].textContent = td_match_droit_centre[3].textContent;
-			td_match_droit_centre[3].textContent = temp;
+			td_match_droit_centre[3].textContent = match_suivant_exterieur;
 		}
 	}
 }

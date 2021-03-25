@@ -46,13 +46,25 @@ class UtilsModel extends Model {
     // GESTION DES MATCHS
 
     public function insertNewMatch($date, $categorie, $competition, $equipe, $equipe_adv, $heure, $site, $terrain) {
-        $sql = "INSERT INTO Matchs VALUES ('$date', '$categorie', '$competition', '$equipe', '$equipe_adv', '$heure', '$site', '$terrain')";
+        $sql = "INSERT INTO Matchs VALUES ('$date', '$categorie', '$competition', '$equipe', '$equipe_adv', '$heure', '$site', '$terrain',NULL,NULL)";
 
         try {
             $this->executeRequest($sql);
             echo "<script>alert('Le match a été ajouté avec succès.');</script>";
         } catch (Exception $e) {
             echo "<script>alert('Erreur : impossible d\'ajouter le match.');</script>";
+        }
+        
+    }
+
+    public function insertScore($date, $categorie, $competition, $equipe, $equipe_adv, $domicile, $exterieur) {
+        $sql = "UPDATE Matchs SET domicile = $domicile, exterieur = $exterieur WHERE date_m = '$date' AND categorie = '$categorie' AND competition = '$competition' AND equipe = '$equipe' AND equipe_adv = '$equipe_adv'";
+
+        try {
+            $this->executeRequest($sql);
+            echo "<script>alert('Le score a été ajouté avec succès.');</script>";
+        } catch (Exception $e) {
+            echo "<script>alert('Erreur : impossible d\'ajouter le score.');</script>";
         }
         
     }

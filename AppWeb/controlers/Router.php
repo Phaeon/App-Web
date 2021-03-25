@@ -83,13 +83,13 @@ class Router {
                     
 		    $this->_connCtrl->admin();                
                 // Dans le cas d'un ajout d'absence
-                } else if (!empty($_POST['joueur_abs']) && !empty($_POST['raison_abs'])) {
+                } else if (!empty($_POST['joueur_abs']) && !empty($_POST['raison_abs']) && !empty($_POST['date_abs'])) {
 
                     $joueur_abs = preg_split('/ /',$_POST['joueur_abs']);
 
                     if ($_POST['abs'] == "enr_abs")
 		    {
-			$this->_playCtrl->newAbsentPlayer($joueur_abs[0], $joueur_abs[1], $_POST['raison_abs']);
+			$this->_playCtrl->newAbsentPlayer($joueur_abs[0], $joueur_abs[1], $_POST['raison_abs'], $_POST['date_abs']);
 		    }
                     
                     $this->_connCtrl->admin();
@@ -191,6 +191,17 @@ class Router {
         		}
                     
                     	$this->_connCtrl->admin();
+		// Dans le cas d'un ajout de score
+                } else if (!empty($_POST['match_score'])) {
+
+                    if ($_POST['match'] == 'Score') {
+
+			$match = preg_split('/;/',$_POST['match_score']);
+
+			$this->_utilsCtrl->insertScore($match[4],$match[1],$match[0],$match[2],$match[3],$_POST['domicile'],$_POST['exterieur']);
+		    }
+                    
+                    $this->_connCtrl->admin();
 		// Dans le cas d'un retrait de match
                 } else if (!empty($_POST['match_retrait'])) {
 
@@ -212,7 +223,7 @@ class Router {
 			$this->_connCtrl->admin_convoc($date);
 		    }
                 // Dans le cas d'une publication de convocation
-                } else if (!empty($_POST['Publier'])) {
+                } else if (!empty($_POST['Publier_convoc'])) {
 
                 	$joueurs_presents = $_SESSION["joueurs_presents"];
 			$matchs = [];
@@ -257,9 +268,17 @@ class Router {
 			{
 				if($match != "exempt")
 				{
-					fwrite($fichier,"<div>$match</div><br><br><ul>\n\n");
+					$match = preg_split('/;/',$match);
 
-					fwrite($csv,"$match;\n");
+					fwrite($fichier,"<div>$match[0]</div><br>\n");
+					fwrite($fichier,"<div>$match[1]</div><br>\n");
+					fwrite($fichier,"<div>$match[2]</div><br>\n");
+					fwrite($fichier,"<div>$match[3]</div><br><br><ul>\n\n");
+
+					fwrite($csv,"$match[0];\n");
+					fwrite($csv,"$match[1];\n");
+					fwrite($csv,"$match[2];\n");
+					fwrite($csv,"$match[3];\n\n");
 
 					foreach($joueurs as $joueur)
 					{
@@ -273,7 +292,7 @@ class Router {
 			}
 
 			fwrite($fichier,"<div>Exempt</div><br><br><ul>\n");
-			fwrite($csv,"Exempt;\n");
+			fwrite($csv,"Exempt;\n\n");
 
 			if(array_key_exists("exempt",$matchs))
 			{
@@ -286,7 +305,58 @@ class Router {
 
 			fwrite($fichier,"</ul></body>\n</html>\n");
 
+			$this->_convCtrl->clearConvocation($nom);
 			$this->_utilsCtrl->newConvocation($nom);
+
+			$this->_connCtrl->admin();
+                // Dans le cas d'un enregistrement de convocation
+                } else if (!empty($_POST['Enregistrer_convoc'])) {
+
+			$joueurs_presents = $_SESSION["joueurs_presents"];
+			$matchs = [];
+
+			foreach($joueurs_presents as $joueur)
+			{
+				if(isset($_POST["$joueur[0]-$joueur[1]"]))
+				{
+					$match = $_POST["$joueur[0]-$joueur[1]"];
+
+					if(!array_key_exists("$match",$matchs))
+					{
+						$matchs["$match"] = ["$joueur[0] $joueur[1]"];
+					}
+					else
+					{
+						array_push($matchs["$match"],"$joueur[0] $joueur[1]");
+					}
+				}
+				else
+				{
+					if(!array_key_exists("exempt",$matchs))
+					{
+						$matchs["exempt"] = ["$joueur[0] $joueur[1]"];
+					}
+					else
+					{
+						array_push($matchs["exempt"],"$joueur[0] $joueur[1]");
+					}
+				}
+			}
+
+			$date = $_SESSION["date_convocation"];
+
+			$this->_convCtrl->clearConvocation($date);
+
+			foreach($matchs as $match => $joueurs)
+			{
+				if($match != "exempt")
+				{
+					foreach($joueurs as $joueur)
+					{
+						$this->_convCtrl->saveConvocation($date,$joueur,$match);
+					}
+				}
+			}
 
 			$this->_connCtrl->admin();
                     

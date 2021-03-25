@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 	<meta charset="utf-8">
-	<title>Titre de la page</title>
+	<title>Site du FC Belle-Beille</title>
 	<link rel="stylesheet" type="text/css" href="views/stylesheets/style.css">
 
 	<script src="views/scripts_js/match.js" defer></script>
@@ -14,7 +14,7 @@
 		<div id="barre">
 		<table>
 			<tr>
-				<td class="barre">Club de Sport</td>
+				<td class="barre">FC Belle-Beille</td>
                 <td><form id="login" method="post"><button name="deco" class="login" type="submit" value="deco">Déconnexion</button></form></td>
 			</tr>
 		</table>
@@ -33,6 +33,7 @@
 			</tr>
 		</table>
 		</div>
+
 
 		<?php
 			$matchs = $_SESSION['match'];
@@ -61,24 +62,24 @@
 		<table class="match">
 			<tr class="match">
 				<td class="bouton_arriere" rowspan="3"><<</td>
-				<td class="match-date" colspan="3"><?php $match1 = $_SESSION['match'][0]; echo "$match1[0]"; ?></td>
-				<td class="match_date_centre" colspan="3"><?php $match2 = $_SESSION['match'][1]; echo "$match2[0]"; ?></td>
-				<td class="match-date" colspan="3"><?php $match3 = $_SESSION['match'][2]; echo "$match3[0]"; ?></td>
+				<td class="match-date" colspan="3"><?php if(count($_SESSION['match']) >= 1){$match1 = $_SESSION['match'][0]; echo "$match1[0]";} ?></td>
+				<td class="match_date_centre" colspan="3"><?php if(count($_SESSION['match']) >= 2){$match2 = $_SESSION['match'][1]; echo "$match2[0]";} ?></td>
+				<td class="match-date" colspan="3"><?php if(count($_SESSION['match']) >= 3){$match3 = $_SESSION['match'][2]; echo "$match3[0]";} ?></td>
 				<td class="bouton_avant" rowspan="3">>></td>
 			</tr>
 
 			<tr class="match">
-				<td class="match"><?php $match1 = $_SESSION['match'][0]; echo "$match1[3] - $match1[1]"; ?></td>
+				<td class="match"><?php if(count($_SESSION['match']) >= 1){$match1 = $_SESSION['match'][0]; echo "$match1[3] - $match1[1]";} ?></td>
 				<td class="tiret"></td>
-				<td class="match-droit"><?php $match1 = $_SESSION['match'][0]; echo "$match1[4]"; ?></td>
+				<td class="match-droit"><?php if(count($_SESSION['match']) >= 1){$match1 = $_SESSION['match'][0]; echo "$match1[4]";} ?></td>
 
-				<td class="match_centre"><?php $match2 = $_SESSION['match'][1]; echo "$match2[3] - $match2[1]"; ?></td>
+				<td class="match_centre"><?php if(count($_SESSION['match']) >= 2){$match2 = $_SESSION['match'][1]; echo "$match2[3] - $match2[1]";} ?></td>
 				<td class="tiret_centre"></td>
-				<td class="match_droit_centre"><?php $match2 = $_SESSION['match'][1]; echo "$match2[4]"; ?></td>
+				<td class="match_droit_centre"><?php if(count($_SESSION['match']) >= 2){$match2 = $_SESSION['match'][1]; echo "$match2[4]";} ?></td>
 
-				<td class="match"><?php $match3 = $_SESSION['match'][2]; echo "$match3[3] - $match3[1]"; ?></td>
+				<td class="match"><?php if(count($_SESSION['match']) >= 3){$match3 = $_SESSION['match'][2]; echo "$match3[3] - $match3[1]";} ?></td>
 				<td class="tiret"></td>
-				<td class="match-droit"><?php $match3 = $_SESSION['match'][2]; echo "$match3[4]"; ?></td>
+				<td class="match-droit"><?php if(count($_SESSION['match']) >= 3){$match3 = $_SESSION['match'][2]; echo "$match3[4]";} ?></td>
 			</tr>
 
 			<tr class="match">
@@ -158,24 +159,33 @@
 					$date = $_POST['date_rencontre'];
 
 					$_SESSION["date_convocation"] = $date;
+
+					$convoc_enregistree = $_SESSION['convoc_enregistree'];
 	
 					foreach($matchs as $record)
 					{
-						echo "<div><fieldset class=\"match\"><legend>$record[2] $record[1] - $record[3] contre $record[4]</legend>Joueurs disponibles<br><br>";
+						echo "<div><fieldset class=\"match\"><legend>$record[2] - $record[3] contre $record[4]</legend>Joueurs disponibles<br><br>";
 
 						foreach($joueurs as $joueur)
 						{
 							if($joueur[3] == $record[1])
 							{
-
-								echo"<label>$joueur[0] $joueur[1] </label><input type=\"radio\" name=\"$joueur[0]-$joueur[1]\" value=\"$record[2] : $record[3] contre $record[4]\"><br>";
+								if( in_array(array("$date","$joueur[0] $joueur[1]","$record[2] : $record[3] contre $record[4]"),$convoc_enregistree) )
+								{
+									echo"<label>$joueur[0] $joueur[1] </label><input type=\"radio\" name=\"$joueur[0]-$joueur[1]\" value=\"$record[2] : $record[3] contre $record[4];Site : $record[6];Terrain : $record[7];Horaire : $record[5]\" checked><br>";
+								}
+								else
+								{
+									echo"<label>$joueur[0] $joueur[1] </label><input type=\"radio\" name=\"$joueur[0]-$joueur[1]\" value=\"$record[2] : $record[3] contre $record[4];Site : $record[6];Terrain : $record[7];Horaire : $record[5]\"><br>";
+								}
 							}
 						}
 
 						echo "</fieldset></div>";
 					}
 
-					echo "<div><button type=\"submit\" name=\"Publier\" value=\"Publier\">Publier</button></div>";
+					echo "<div><button type=\"submit\" name=\"Publier_convoc\" value=\"Publier\">Publier</button>&nbsp;&nbsp;&nbsp;";
+					echo "<button type=\"submit\" name=\"Enregistrer_convoc\" value=\"Enregistrer\">Enregistrer</button></div>";
 				}		
 			?>
 
@@ -192,14 +202,14 @@
 				<legend>Enregistrer une absence</legend>
 
 				<label>Joueur :</label>
-				<select name="joueur_abs">
+				<select name="joueur_abs" required>
 					<option value="">-- Choisissez un joueur --</option>
 	
 					<?php
 
 					session_start();
 	
-					$joueurs = $_SESSION['joueurs_presents'];
+					$joueurs = $_SESSION['joueurs'];
 	
 					foreach($joueurs as $record)
 					{
@@ -211,13 +221,16 @@
 				</select><br>
 
 				<label>Raison :</label>
-				<select name="raison_abs">
+				<select name="raison_abs" required>
 					<option value="">-- Choisissez une raison --</option>
 					<option value="Absent">Absent</option>
 					<option value="Blesse">Blessé</option>
 					<option value="Suspendu">Suspendu</option>
 					<option value="Sans licence">Sans licence</option>
 				</select><br>
+
+				<label>Date :</label>
+				<input type="date" name="date_abs" required><br>
 
 				<button type="submit" name="abs" value="enr_abs">Enregistrer</button>
 
@@ -261,6 +274,7 @@
 					<th class="effectifs">Nom</th>
 					<th class="effectifs">Prénom</th>
 					<th class="effectifs">Raison</th>
+					<th class="effectifs">Date</th>
 				</tr>
 
 				<?php
@@ -269,7 +283,14 @@
 
 				foreach($joueurs as $record)
 				{
-					echo "<tr><td class=\"effectifs\">$record[0]</td><td class=\"effectifs\">$record[1]</td><td class=\"effectifs\">$record[2]</td></tr>";
+					if($record[3] == 'N')
+					{
+						echo "<tr><td class=\"effectifs\">$record[0]</td><td class=\"effectifs\">$record[1]</td><td class=\"effectifs\">$record[2]</td><td class=\"effectifs\">En attente de validation</td></tr>";
+					}
+					else
+					{
+						echo "<tr><td class=\"effectifs\">$record[0]</td><td class=\"effectifs\">$record[1]</td><td class=\"effectifs\">$record[2]</td><td class=\"effectifs\">$record[4]</td></tr>";
+					}
 				}
 
 				?>
@@ -370,6 +391,12 @@
 				<label>Horaire :</label>
 				<input type="time" name="horaire_match" required><br>
 
+				<label>Site :</label>
+				<input type="text" name="site_match" required><br>
+
+				<label>Terrain :</label>
+				<input type="text" name="terrain_match" required><br>
+
 				<button type="submit" name="match" value="Enregistrer">Enregistrer</button>
 
 				</fieldset>
@@ -383,6 +410,36 @@
 				<input type="file" name="fichier" /><br>
 
    				<button name="match" type="submit" value="Enregistre-plusieurs">Enregistrer</button>
+
+				</fieldset>
+			</form>
+
+			<form method="post">
+				<fieldset>
+				<legend>Enregistrer le score d'un match</legend>
+
+				<label>Liste des matchs :</label>
+				<select name="match_score" required>
+					<option value="">-- Choisissez un match --</option>
+
+					<?php
+
+					session_start();
+
+					$matchs = $_SESSION['match'];
+
+					foreach($matchs as $record)
+					{
+						echo "<option value=\"$record[2];$record[1];$record[3];$record[4];$record[0]\">$record[2] - $record[3] / $record[4] - $record[0]</option>";
+					}
+	
+					?>
+				</select><br>
+
+				<label>Domicile : </label>
+				<input type="text" name="domicile" size="1" required> - <input type="text" name="exterieur" size="1" required><label> : Extérieur</label><br>
+
+   				<button name="match" type="submit" value="Score">Enregistrer</button>
 
 				</fieldset>
 			</form>
@@ -602,6 +659,26 @@
 			</form>
 
 			<hr>
+
+			<p id="titre">EQUIPES</p>
+
+			<table>
+				<tr>
+					<th class="effectifs">Nom</th>
+					<th class="effectifs">Catégorie</th>
+				</tr>
+
+				<?php
+
+				$equipes = $_SESSION['equipes'];
+
+				foreach($equipes as $record)
+				{
+					echo "<tr><td class=\"effectifs\">$record[0]</td><td class=\"effectifs\">$record[1]</td></tr>";
+				}
+
+				?>
+			</table><br>
 
 			<p id="titre">JOUEURS</p>
 

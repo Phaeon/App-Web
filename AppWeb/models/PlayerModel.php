@@ -66,8 +66,9 @@ class PlayerModel extends Model {
 
     // Gestion des absents
 
-    public function insertAbsentPlayer($nom, $prenom, $raison, $raisonC) {
-        $sql = "INSERT INTO Absences VALUES ('$nom', '$prenom', '$raison', '$raisonC')";
+    public function insertAbsentPlayer($nom, $prenom, $raison, $raisonC,$date) {
+
+       	$sql = "INSERT INTO Absences VALUES ('$nom', '$prenom', '$raison', '$raisonC','$date')";
         
         try {
             $this->executeRequest($sql);
@@ -120,8 +121,8 @@ class PlayerModel extends Model {
 	return $req;
     }
 
-    public function getPresent() {
-	$sql = "SELECT * FROM Effectifs WHERE nom NOT IN (SELECT nom FROM Absences) AND prenom NOT IN (SELECT prenom FROM Absences)";
+    public function getPresent($date) {
+	$sql = "SELECT * FROM Effectifs WHERE nom NOT IN (SELECT nom FROM Absences WHERE date_abs = '$date' OR raison_court = 'N') AND prenom NOT IN (SELECT prenom FROM Absences WHERE date_abs = '$date' OR raison_court = 'N')";
 
 	try {
 		$req = $this->executeRequest($sql);
