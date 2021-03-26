@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-<meta charset="UTF-8" />
-<link rel="stylesheet" href="stylesheets/index.css" />
-<title><?= $title ?></title>
-</head>
-<body>
-	<div id="global">
-		<div id="content">
-                <?= $content ?>
-            </div>
-		
-	</div>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="views/stylesheets/style.css" />
+        <title><?= $title ?></title>
+        <script src="views/scripts_js/match.js" defer></script>
+        <?= $scripts ?>
+
+    </head>
+    <body>
+
+        <div id="global">
+            <?= $content ?>
+        </div>
+    </body>
 </html>

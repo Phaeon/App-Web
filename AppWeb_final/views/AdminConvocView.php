@@ -1,7 +1,9 @@
 <?php 
-$this->title = "Admin";
+$this->title = "Site du FC Belle-Beille - Admin";
 
-$this->scripts = "<script src=\"views/scripts_js/onglets.js\" defer></script>"; ?>
+$this->scripts = "<script src=\"views/scripts_js/onglets_convoc.js\" defer></script>
+	<script src=\"views/scripts_js/convocation.js\" defer></script>"; ?>
+
 
 <div id="barre">
     <table>
@@ -34,7 +36,7 @@ $tableau = "";
 
 foreach($matchs as $match)
 {
-    $tab_match = "['$match[0]','$match[3]','$match[1]','$match[4]','$match[8]','$match[9]']";
+    $tab_match = "['$match[0]','$match[3]','$match[1]','$match[4]']";
     if($tableau == "")
     {
         $tableau = $tab_match;
@@ -75,17 +77,17 @@ echo "<script> let matchs = $tableau;</script>";
         </tr>
 
         <tr class="match">
-            <td class="match"><?php if(count($_SESSION['match']) >= 1){$match1 = $_SESSION['match'][0]; echo "$match1[8]";} ?></td>
+            <td class="match">2</td>
             <td class="tiret">-</td>
-            <td class="match-droit"><?php if(count($_SESSION['match']) >= 1){$match1 = $_SESSION['match'][0]; echo "$match1[9]";} ?></td>
+            <td class="match-droit">1</td>
 
-            <td class="match_centre"><?php if(count($_SESSION['match']) >= 2){$match2 = $_SESSION['match'][1]; echo "$match2[8]";} ?></td>
+            <td class="match_centre">0</td>
             <td class="tiret_centre">-</td>
-            <td class="match_droit_centre"><?php if(count($_SESSION['match']) >= 2){$match2 = $_SESSION['match'][1]; echo "$match2[9]";} ?></td>
+            <td class="match_droit_centre">0</td>
 
-            <td class="match"><?php if(count($_SESSION['match']) >= 3){$match3 = $_SESSION['match'][2]; echo "$match3[8]";} ?></td>
+            <td class="match">0</td>
             <td class="tiret">-</td>
-            <td class="match-droit"><?php if(count($_SESSION['match']) >= 3){$match3 = $_SESSION['match'][2]; echo "$match3[9]";} ?></td>
+            <td class="match-droit">3</td>
         </tr>
     </table>
 </div>
@@ -109,7 +111,7 @@ echo "<script> let matchs = $tableau;</script>";
     </table>
 </div>
 
-<!-- PAGE CONVOCATION -->
+<!-- PAGE CONVOCATIONS -->
 
 <div id="convocations">
     <form method="post">
@@ -138,9 +140,54 @@ echo "<script> let matchs = $tableau;</script>";
 
         </fieldset>
     </form>
+
+    <form method="post">
+
+        <?php
+        if(isset($_SESSION['specific_matchs']))
+        {
+            $matchs = $_SESSION['specific_matchs'];
+
+            $joueurs = $_SESSION['joueurs_presents'];
+
+            $date = $_POST['date_rencontre'];
+
+            $_SESSION["date_convocation"] = $date;
+
+            $convoc_enregistree = $_SESSION['convoc_enregistree'];
+
+            foreach($matchs as $record)
+            {
+                echo "<div><fieldset class=\"match\"><legend>$record[2] - $record[3] contre $record[4]</legend>Joueurs disponibles<br><br>";
+
+                foreach($joueurs as $joueur)
+                {
+                    if($joueur[3] == $record[1])
+                    {
+                        if( in_array(array("$date","$joueur[0] $joueur[1]","$record[2] : $record[3] contre $record[4]"),$convoc_enregistree) )
+                        {
+                            echo"<label>$joueur[0] $joueur[1] </label><input type=\"radio\" name=\"$joueur[0]-$joueur[1]\" value=\"$record[2] : $record[3] contre $record[4];Site : $record[6];Terrain : $record[7];Horaire : $record[5]\" checked><br>";
+                        }
+                        else
+                        {
+                            echo"<label>$joueur[0] $joueur[1] </label><input type=\"radio\" name=\"$joueur[0]-$joueur[1]\" value=\"$record[2] : $record[3] contre $record[4];Site : $record[6];Terrain : $record[7];Horaire : $record[5]\"><br>";
+                        }
+                    }
+                }
+
+                echo "</fieldset></div>";
+            }
+
+            echo "<div><button type=\"submit\" name=\"Publier_convoc\" value=\"Publier\">Publier</button>&nbsp;&nbsp;&nbsp;";
+            echo "<button type=\"submit\" name=\"Enregistrer_convoc\" value=\"Enregistrer\">Enregistrer</button></div>";
+        }		
+        ?>
+
+    </form>
+
 </div>
 
-<!-- PAGE ABSENCE -->
+<!-- PAGE ABSENCES -->
 
 <div id="absences">
 

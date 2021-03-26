@@ -20,17 +20,17 @@ btn_accueil.addEventListener("click",page_accueil);
 
 function page_accueil()
 {
-	btn_accueil.style.backgroundColor = '#9b9b9b';
-	btn_convocations.style.backgroundColor = '#d8d8d8';
-	btn_absences.style.backgroundColor = '#d8d8d8';
-	btn_calendrier.style.backgroundColor = '#d8d8d8';
-	btn_effectif.style.backgroundColor = '#d8d8d8';
-	
-	accueil.hidden = false;
-	convocations.hidden = true;
-	absences.hidden = true;
-	calendrier.hidden = true;
-	effectif.hidden = true;
+    btn_accueil.style.backgroundColor = '#9b9b9b';
+    btn_convocations.style.backgroundColor = '#d8d8d8';
+    btn_absences.style.backgroundColor = '#d8d8d8';
+    btn_calendrier.style.backgroundColor = '#d8d8d8';
+    btn_effectif.style.backgroundColor = '#d8d8d8';
+
+    accueil.hidden = false;
+    convocations.hidden = true;
+    absences.hidden = true;
+    calendrier.hidden = true;
+    effectif.hidden = true;
 }
 
 /*****/
@@ -39,17 +39,17 @@ btn_convocations.addEventListener("click",page_convocations);
 
 function page_convocations()
 {
-	btn_accueil.style.backgroundColor = '#d8d8d8';
-	btn_convocations.style.backgroundColor = '#9b9b9b';
-	btn_absences.style.backgroundColor = '#d8d8d8';
-	btn_calendrier.style.backgroundColor = '#d8d8d8';
-	btn_effectif.style.backgroundColor = '#d8d8d8';
+    btn_accueil.style.backgroundColor = '#d8d8d8';
+    btn_convocations.style.backgroundColor = '#9b9b9b';
+    btn_absences.style.backgroundColor = '#d8d8d8';
+    btn_calendrier.style.backgroundColor = '#d8d8d8';
+    btn_effectif.style.backgroundColor = '#d8d8d8';
 
-	accueil.hidden = true;
-	convocations.hidden = false;
-	absences.hidden = true;
-	calendrier.hidden = true;
-	effectif.hidden = true;
+    accueil.hidden = true;
+    convocations.hidden = false;
+    absences.hidden = true;
+    calendrier.hidden = true;
+    effectif.hidden = true;
 }
 
 /*****/
@@ -58,17 +58,17 @@ btn_absences.addEventListener("click",page_absences);
 
 function page_absences()
 {
-	btn_accueil.style.backgroundColor = '#d8d8d8';
-	btn_convocations.style.backgroundColor = '#d8d8d8';
-	btn_absences.style.backgroundColor = '#9b9b9b';
-	btn_calendrier.style.backgroundColor = '#d8d8d8';
-	btn_effectif.style.backgroundColor = '#d8d8d8';
+    btn_accueil.style.backgroundColor = '#d8d8d8';
+    btn_convocations.style.backgroundColor = '#d8d8d8';
+    btn_absences.style.backgroundColor = '#9b9b9b';
+    btn_calendrier.style.backgroundColor = '#d8d8d8';
+    btn_effectif.style.backgroundColor = '#d8d8d8';
 
-	accueil.hidden = true;
-	convocations.hidden = true;
-	absences.hidden = false;
-	calendrier.hidden = true;
-	effectif.hidden = true;
+    accueil.hidden = true;
+    convocations.hidden = true;
+    absences.hidden = false;
+    calendrier.hidden = true;
+    effectif.hidden = true;
 }
 
 /*****/
@@ -77,17 +77,17 @@ btn_calendrier.addEventListener("click",page_calendrier);
 
 function page_calendrier()
 {
-	btn_accueil.style.backgroundColor = '#d8d8d8';
-	btn_convocations.style.backgroundColor = '#d8d8d8';
-	btn_absences.style.backgroundColor = '#d8d8d8';
-	btn_calendrier.style.backgroundColor = '#9b9b9b';
-	btn_effectif.style.backgroundColor = '#d8d8d8';
+    btn_accueil.style.backgroundColor = '#d8d8d8';
+    btn_convocations.style.backgroundColor = '#d8d8d8';
+    btn_absences.style.backgroundColor = '#d8d8d8';
+    btn_calendrier.style.backgroundColor = '#9b9b9b';
+    btn_effectif.style.backgroundColor = '#d8d8d8';
 
-	accueil.hidden = true;
-	convocations.hidden = true;
-	absences.hidden = true;
-	calendrier.hidden = false;
-	effectif.hidden = true;
+    accueil.hidden = true;
+    convocations.hidden = true;
+    absences.hidden = true;
+    calendrier.hidden = false;
+    effectif.hidden = true;
 }
 
 /*****/
@@ -96,17 +96,17 @@ btn_effectif.addEventListener("click",page_effectif);
 
 function page_effectif()
 {
-	btn_accueil.style.backgroundColor = '#d8d8d8';
-	btn_convocations.style.backgroundColor = '#d8d8d8';
-	btn_absences.style.backgroundColor = '#d8d8d8';
-	btn_calendrier.style.backgroundColor = '#d8d8d8';
-	btn_effectif.style.backgroundColor = '#9b9b9b';
+    btn_accueil.style.backgroundColor = '#d8d8d8';
+    btn_convocations.style.backgroundColor = '#d8d8d8';
+    btn_absences.style.backgroundColor = '#d8d8d8';
+    btn_calendrier.style.backgroundColor = '#d8d8d8';
+    btn_effectif.style.backgroundColor = '#9b9b9b';
 
-	accueil.hidden = true;
-	convocations.hidden = true;
-	absences.hidden = true;
-	calendrier.hidden = true;
-	effectif.hidden = false;
+    accueil.hidden = true;
+    convocations.hidden = true;
+    absences.hidden = true;
+    calendrier.hidden = true;
+    effectif.hidden = false;
 }
 
 /*****/

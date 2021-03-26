@@ -15,7 +15,6 @@ class T extends Model {
         if ($req->rowCount() == 1) echo "Login déjà existant";
         else $this->executeRequest($sql);
         
-        $this->_mainCtrl = new HomeControler();
     }
 }
 
@@ -29,7 +28,6 @@ if (isset($_POST['login']) && isset($_POST['pass']) && isset($_POST['role']))
     
     try {
         $m = new T($login, $sql);
-        require_once('views/MainView.php');
         
     } catch (Exception $e) {
         echo $e->getMessage();

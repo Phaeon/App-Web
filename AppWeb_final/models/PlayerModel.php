@@ -3,7 +3,7 @@
 require_once('models/Model.php');
 
 class PlayerModel extends Model {
-    
+
     // Gestion des joueurs
 
     public function newPlayer($nom, $prenom, $licence, $categorie) {
@@ -12,23 +12,23 @@ class PlayerModel extends Model {
         try {
             $this->executeRequest($sql);
 
-	    if($licence == "non")
-	    {
-		$sql2 = "INSERT INTO Absences VALUES ('$nom', '$prenom', 'Sans licence', 'N')";
+            if($licence == "non")
+            {
+                $sql2 = "INSERT INTO Absences VALUES ('$nom', '$prenom', 'Sans licence', 'N')";
 
-		$this->executeRequest($sql2);
-	    }
+                $this->executeRequest($sql2);
+            }
 
             echo "<script>alert('Joueur ".ucfirst(strtolower($nom))." ".ucfirst(strtolower($prenom))." a été ajouté.');</script>";
         } catch (Exception $e) {
             echo "<script>alert('Erreur: Impossible d\'ajouter le joueur.');</script>";
         }
-        
+
     }
-    
+
     public function removePlayer($nom, $prenom) {
         $sql = "DELETE FROM Effectifs WHERE nom = '$nom' AND prenom = '$prenom'";
-        
+
         try {
             $req = $this->executeRequest($sql);
             if ($req->rowCount() > 0) {
@@ -53,55 +53,55 @@ class PlayerModel extends Model {
     }
 
     public function getPlayer() {
-	$sql = "SELECT * FROM Effectifs";
+        $sql = "SELECT * FROM Effectifs";
 
-	try {
+        try {
             $req = $this->executeRequest($sql);
         } catch (Exception $e) {
             echo "<script>alert('Erreur: Impossible d\'avoir le joueur.');</script>";
         }
 
-	return $req;
+        return $req;
     }
 
     // Gestion des absents
 
     public function insertAbsentPlayer($nom, $prenom, $raison, $raisonC,$date) {
 
-       	$sql = "INSERT INTO Absences VALUES ('$nom', '$prenom', '$raison', '$raisonC','$date')";
-        
+        $sql = "INSERT INTO Absences VALUES ('$nom', '$prenom', '$raison', '$raisonC','$date')";
+
         try {
             $this->executeRequest($sql);
 
-	    if($raisonC == 'N')
-	    {
-		$sql2 = "UPDATE Effectifs SET type_licence = 'non' WHERE nom = '$nom' AND prenom = '$prenom'";
+            if($raisonC == 'N')
+            {
+                $sql2 = "UPDATE Effectifs SET type_licence = 'non' WHERE nom = '$nom' AND prenom = '$prenom'";
 
-		$this->executeRequest($sql2);
-	    }
+                $this->executeRequest($sql2);
+            }
 
             echo "<script>alert('Joueur ".ucfirst(strtolower($nom))." ".ucfirst(strtolower($prenom))." a été ajouté en tant qu\'absent.');</script>";
         } catch (Exception $e) {
             echo "<script>alert('Erreur: Impossible d'ajouter le joueur en tant qu\'absent.');</script>";
         }
-        
+
     }
-    
+
     public function removeAbsentPlayer($nom, $prenom) {
 
-	$raison = "SELECT raison_court FROM Absences WHERE nom = '$nom' AND prenom = '$prenom'";
+        $raison = "SELECT raison_court FROM Absences WHERE nom = '$nom' AND prenom = '$prenom'";
         $sql = "DELETE FROM Absences WHERE nom = '$nom' AND prenom = '$prenom'";
-        
+
         try {
-	    $abs = $this->executeRequest($raison)->fetch(PDO::FETCH_NUM);
+            $abs = $this->executeRequest($raison)->fetch(PDO::FETCH_NUM);
             $this->executeRequest($sql);
 
-	    if($abs[0] == 'N')
-	    {
-		$sql2 = "UPDATE Effectifs SET type_licence = 'oui' WHERE nom = '$nom' AND prenom = '$prenom'";
+            if($abs[0] == 'N')
+            {
+                $sql2 = "UPDATE Effectifs SET type_licence = 'oui' WHERE nom = '$nom' AND prenom = '$prenom'";
 
-		$this->executeRequest($sql2);
-	    }
+                $this->executeRequest($sql2);
+            }
 
             echo "<script>alert('Joueur ".ucfirst(strtolower($nom))." ".ucfirst(strtolower($prenom))." n\'est plus absent.');</script>";
         } catch (Exception $e) {
@@ -110,27 +110,27 @@ class PlayerModel extends Model {
     }
 
     public function getAbsent() {
-	$sql = "SELECT * FROM Absences";
+        $sql = "SELECT * FROM Absences";
 
-	try {
+        try {
             $req = $this->executeRequest($sql);
         } catch (Exception $e) {
             echo "<script>alert('Erreur: Impossible d\'avoir les absents.');</script>";
         }
 
-	return $req;
+        return $req;
     }
 
     public function getPresent($date) {
-	$sql = "SELECT * FROM Effectifs WHERE nom NOT IN (SELECT nom FROM Absences WHERE date_abs = '$date' OR raison_court = 'N') AND prenom NOT IN (SELECT prenom FROM Absences WHERE date_abs = '$date' OR raison_court = 'N')";
+        $sql = "SELECT * FROM Effectifs WHERE nom NOT IN (SELECT nom FROM Absences WHERE date_abs = '$date' OR raison_court = 'N') AND prenom NOT IN (SELECT prenom FROM Absences WHERE date_abs = '$date' OR raison_court = 'N')";
 
-	try {
-		$req = $this->executeRequest($sql);
-	} catch (Exception $e) {
-		echo "<script>alert('Erreur : Impossible d\'avoir les présents.');</script>";
-	}
+        try {
+            $req = $this->executeRequest($sql);
+        } catch (Exception $e) {
+            echo "<script>alert('Erreur : Impossible d\'avoir les présents.');</script>";
+        }
 
-	return $req;
+        return $req;
     }
 
     // Gestion des matchs
@@ -144,12 +144,12 @@ class PlayerModel extends Model {
         } catch (Exception $e) {
             echo "<script>alert('Erreur: Impossible d'ajouter l\'équipe.');</script>";
         }
-        
+
     }
 
     public function removeTeam($equipe, $categorie) {
         $sql = "DELETE FROM Equipes WHERE nom_equipe = '$equipe' AND categorie = '$categorie'";
-        
+
         try {
             $req = $this->executeRequest($sql);
             if ($req->rowCount() > 0) {
@@ -161,27 +161,27 @@ class PlayerModel extends Model {
     }
 
     public function getTeam() {
-	$sql = "SELECT nom_equipe,categorie FROM Equipes";
+        $sql = "SELECT nom_equipe,categorie FROM Equipes";
 
-	try {
+        try {
             $req = $this->executeRequest($sql);
         } catch (Exception $e) {
             echo "<script>alert('Erreur: Impossible d\'avoir les équipes.');</script>";
         }
 
-	return $req;
+        return $req;
     }
 
     public function getCategorie() {
-	$sql = "SELECT DISTINCT categorie FROM Equipes";
+        $sql = "SELECT DISTINCT categorie FROM Equipes";
 
-	try {
+        try {
             $req = $this->executeRequest($sql);
         } catch (Exception $e) {
             echo "<script>alert('Erreur: Impossible d\'avoir les catégories.');</script>";
         }
 
-	return $req;
+        return $req;
     }
 }
 

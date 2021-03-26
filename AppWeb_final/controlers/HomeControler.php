@@ -7,16 +7,17 @@ class HomeControler {
     private $_conv;
 
     public function __construct() {
-	$this->_utils = new UtilsControler();
+        $this->_utils = new UtilsControler();
         $this->_conv = new ConvocControler();
     }
-    
+
     public function home() {
 
-	$_SESSION['match'] = $this->_utils->getMatch()->fetchAll(PDO::FETCH_NUM);
-	$_SESSION['convocation'] = $this->_conv->getConvocation()->fetchAll(PDO::FETCH_NUM);
+        $_SESSION['match'] = $this->_utils->getMatch()->fetchAll(PDO::FETCH_NUM);
+        $_SESSION['convocation'] = $this->_conv->getConvocation()->fetchAll(PDO::FETCH_NUM);
 
-        require_once('views/MainView.php');
+        $vue = new View("Main");
+        $vue->generate(array());
     }
 
 }

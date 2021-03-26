@@ -9,6 +9,9 @@ class View
     // Titre de la vue (défini dans le fichier vue)
     private $title;
 
+    // Scripts utilisés
+    private $scripts;
+
     public function __construct($action)
     {
         // Détermination du nom du fichier vue à partir de l'action
@@ -21,9 +24,10 @@ class View
         $content = $this->generateFile($this->file, $data);
         $view = $this->generateFile('views/Common.php', array(
             'title' => $this->title,
+            'scripts' => $this->scripts,
             'content' => $content
         ));
-        
+
         echo $view;
     }
 
