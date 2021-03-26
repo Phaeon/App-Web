@@ -13,6 +13,7 @@ Vous aurez plusieurs choses à installer et à prévoir...
 - Un serveur local (WAMP/MAMP/LAMP) ou un serveur web HTTP quelconque
 - Avoir une version PHP supérieure à la 7.4
 - Un outil de bases de données (phpMyAdmin, MySQL...)
+- Privilégiez Google Chrome ou Firefox
 
 
 
@@ -30,45 +31,6 @@ Vous aurez plusieurs choses à installer et à prévoir...
 7. Vous pouvez donc d'ores-et-déjà ajouter et/ou supprimer des données (l'actualisation des données se fait de manière automatique)
 
 A vous de jouer !
-
-
-### Protégez vos fichiers...
-
-Nous vous recommandons de bien sécuriser l'accès à vos fichiers. Pour cela, vous recommandons d'implémenter le fichier `.htpasswd` dans votre répertoire `AppWeb` et d'implémenter le fichier `.htaccess` sur chaque dossier que vous souhaitez.
-
-ATTENTION : Ne pas mettre le fichier `.htaccess` dans le répertoire `AppWeb`, sinon vous ne pourrez pas accéder de manière normale la page d'accueil de votre application.
-
-- Fichier ".htaccess" :
-
-> AuthName "Aucun accès possible"
->
-> AuthType Basic
->
-> AuthUserFile "Chemin/Relatif/Du/Fichier/.htpasswd"
->
-> Require valid-user
- 
-Pensez à changer le chemin relatif du fichier.
-
-- Fichier ".htpasswd":
-
-Le fichier `AppWeb/admin/crypter.php` vous permet de générer un mot de passe crypté que vous insérez dans le fichier.
-
-> login:motDePasseCrypté
-> 
-> root:$2y$10$gm2aKua/GuVuQT8u0So76.KOVEl1h3WJ3yOGnlv.BtCHEAXOYeIXu
-
-Les identifiants par défaut sont root:root.
-Vous aurez donc simplement à entrer votre identifiant administrateur et mot de passe pour accéder aux fichiers depuis la barre d'adresse.
-
-CONSEIL : En tant que gérant du serveur web, vous pouvez modifier directement les fichiers source sur le serveur. Si vous ne voyez pas l'utilité de donner accès aux fichiers sources à un autre utilisateur, cela ne sert à rien d'introduire des mots de passe, insérez simplement le fichier `.htpasswd` vide là où vous le souhaitez.
-
-### Petit tour sur l'application...
-
-Pour ne pas sumberger ce README avec du texte, voici une petite vidéo explicative :
-
-> www.youtube.com
-
 
 
 ### Versions
