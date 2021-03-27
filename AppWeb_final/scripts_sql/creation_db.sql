@@ -19,6 +19,9 @@ CREATE TABLE Utilisateurs (
     role VARCHAR(10) CHECK (role IN ('Secrétaire', 'Entraîneur')),
     PRIMARY KEY (login, mdp, role)
 );
+                            
+INSERT INTO Utilisateurs VALUES ('secretaire', '$2y$10$iXWUmcnvWLn85tXDtIgE8O8jKRUCEoJtyBJNXZVuuEOSBiqSayQxa', 'Secrétaire'), ('entraineur', '$2y$10$gPREU8RtbNmYjMmRhNEi1OXa5lb7VArU6UbxtOoVqAvzHkxpeEW3W', 'Entraîneur');
+                 
 
 CREATE TABLE Equipes (
     nom_equipe VARCHAR(20),
