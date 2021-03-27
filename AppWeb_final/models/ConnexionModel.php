@@ -14,6 +14,15 @@ class ConnexionModel extends Model {
         }
 
     }
+    
+    public function getRole($login) {
+        $sql = "select role from Utilisateurs where login=?";
+
+        $utilisateur = $this->executeRequest($sql, array($login));
+        if ($utilisateur->rowCount() == 1) 
+            return $utilisateur->fetchColumn(0);
+        
+    }
 
 }
 

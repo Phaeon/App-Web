@@ -36,7 +36,7 @@ class ConnexionControler {
 
     public function deconnexion() {
         session_destroy();
-        require_once('views/MainView.php');
+        $this->_main->home();
     }
 
     public function admin() {
@@ -51,9 +51,15 @@ class ConnexionControler {
         $_SESSION['convocation'] = $this->_convoc->getConvocation()->fetchAll(PDO::FETCH_NUM);
 
         // Créer une nouvelle vue admin
-        //require_once('views/AdminView.php');
-        $vue = new View("Admin");
-        $vue->generate(array());
+        $login = $_SESSION['admin'];
+        $role = $this->_conn->getRole($login);
+        if ($role == "Entraîneur") {
+            $vue = new View("Entr");
+            $vue->generate(array());
+        } else {
+            $vue = new View("Secr");
+            $vue->generate(array());
+        }
     }
 
     public function admin_convoc($date) {
@@ -71,9 +77,18 @@ class ConnexionControler {
         $_SESSION['convoc_enregistree'] = $this->_convoc->getConvocationEnregistree($date)->fetchAll(PDO::FETCH_NUM);
 
         // Créer une nouvelle vue admin pour créer une convocation
-        $vue = new View("AdminConvoc");
-        $vue->generate(array());
+        $login = $_SESSION['admin'];
+        $role = $this->_conn->getRole($login);
+        if ($role == "Entraîneur") {
+            $vue = new View("Entr");
+            $vue->generate(array());
+        } else {
+            $vue = new View("Secr");
+            $vue->generate(array());
+        }
     }
+    
+
 }
 
 ?>
