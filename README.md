@@ -32,6 +32,25 @@ Dans le cas où root n'est pas votre identifiant, pensez à changer le login ain
 
 A vous de jouer !
 
+### Rôle visiteur
+
+Le rôle visiteur n'a accès qu'aux convocations qui ont été publiées par l'entraîneur. Celles-ci apparaissent dans un tableau lorsque l'on arrive sur le site et sont proposées en deux formats : HTML et CSV. Le visiteur a également à disposition une barre de défilement qui lui permet de voir tous les matchs enregistrés et les éventuels scores qui ont été enregistrés pour ces matchs.
+
+### Rôle entraîneur
+
+Tout comme le visiteur, l'entraîneur a accès aux convocations publiées ainsi qu'à la barre de défilement pour les matchs. De plus, il a une barre d'onglets :
+1. Convocations : l'entraîneur a accès aux convocations et peut en enregistrer et en publier. Il doit tout d'abord choisir la date de la rencontre puis en validant, celui-ci verra apparaître l'ensemble des matchs ayant lieu à cette date. Celui-ci pourra alors choisir les joueurs qui composent chaque équipe, sachant qu'un joueur ne pourra pas être présent dans deux équipes simultanées (gérer via un bouton radio). Si l'entraîneur n'a pas terminé, il peut choisir d'enregistrer la convocation. Lorsqu'il reviendra sur cette convocation une autre fois, les choix qu'il avait fait pour les joueurs seront remis. Dans le cas où il choisit de publier une convocation, une nouvelle ligne sur le tableau page d'accueil apparaîtra avec la convocation disponible en HTML ou CSV.
+2. Absences : l'entraîneur peut ajouter ou retirer des absences de joueur. Deux formulaires sont à sa disposition pour cela, et un tableau récapitulant l'ensemble des absences apparaît en bas de page.
+3. Calendrier : l'entraîneur ne peut que le tableau des matchs programmés.
+4. Effectif : l'entraîneur ne peut voir que les tableaux des équipes et des joueurs inscrits.
+
+### Rôle secrétaire
+
+Tout comme le visiteur, le secrétaire a accès aux convocations publiées ainsi qu'à la barre de défilement pour les matchs. De plus, il a une barre d'onglets :
+1. Absences : identique à l'onglet Absences de l'entraîneur.
+2. Calendrier : le secrétaire peut créer de nouvelles compétitions et en retirer (sous contrainte qu'il n'y ait aucun match enregistré pour cette compétition). De plus, il peut également enregistrer un ou plusieurs matchs, respectivement via un formulaire ou un fichier csv (un fichier test matchs.csv est disponible dans le dossier de l'application afin d'ajouter 5 matchs dans la base de données). Enfin, il peut supprimer un match et voir l'ensemble des enregistrements dans le tableau récapitulatif.
+3. Effectif : le secrétaire peut ajouter un joueur, le changer de catégorie ou en supprimer. Il peut de plus créer de nouvelles équipes ou en supprimer (sous contrainte qu'il n'y ait aucun match enregistré pour cette équipe), et voir l'ensemble des enregistrements dans les tableaux récapitulatifs.
+
 
 ### Versions
 
