@@ -36,7 +36,7 @@ A vous de jouer !
 
 Le rôle visiteur n'a accès qu'aux convocations qui ont été publiées par l'entraîneur. Celles-ci apparaissent dans un tableau lorsque l'on arrive sur le site et sont proposées en deux formats : HTML et CSV. Le visiteur a également à disposition une barre de défilement qui lui permet de voir tous les matchs enregistrés et les éventuels scores qui ont été enregistrés pour ces matchs.
 
-### Rôle entraîneur
+### Rôle entraîneur
 
 Tout comme le visiteur, l'entraîneur a accès aux convocations publiées ainsi qu'à la barre de défilement pour les matchs. De plus, il a une barre d'onglets :
 1. Convocations : l'entraîneur a accès aux convocations et peut en enregistrer et en publier. Il doit tout d'abord choisir la date de la rencontre puis en validant, celui-ci verra apparaître l'ensemble des matchs ayant lieu à cette date. Celui-ci pourra alors choisir les joueurs qui composent chaque équipe, sachant qu'un joueur ne pourra pas être présent dans deux équipes simultanées (gérer via un bouton radio). Si l'entraîneur n'a pas terminé, il peut choisir d'enregistrer la convocation. Lorsqu'il reviendra sur cette convocation une autre fois, les choix qu'il avait fait pour les joueurs seront remis. Dans le cas où il choisit de publier une convocation, une nouvelle ligne sur le tableau page d'accueil apparaîtra avec la convocation disponible en HTML ou CSV.
