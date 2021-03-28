@@ -65,11 +65,11 @@ class PlayerControler {
         $this->_player->insertAbsentPlayer($nom, $prenom, $raison, $raisonC,$date);
     }
 
-    public function removeAbsentPlayer($nom, $prenom) {
+    public function removeAbsentPlayer($nom, $prenom,$date) {
         $nom = ucfirst(strtolower($nom));
         $prenom = ucfirst(strtolower($prenom));
 
-        $this->_player->removeAbsentPlayer($nom, $prenom);
+        $this->_player->removeAbsentPlayer($nom, $prenom,$date);
     }
 
     public function getAbsent() {

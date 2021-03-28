@@ -87,10 +87,10 @@ class PlayerModel extends Model {
 
     }
 
-    public function removeAbsentPlayer($nom, $prenom) {
+    public function removeAbsentPlayer($nom, $prenom, $date) {
 
-        $raison = "SELECT raison_court FROM Absences WHERE nom = '$nom' AND prenom = '$prenom'";
-        $sql = "DELETE FROM Absences WHERE nom = '$nom' AND prenom = '$prenom'";
+        $raison = "SELECT raison_court FROM Absences WHERE nom = '$nom' AND prenom = '$prenom' AND date_abs = '$date'";
+        $sql = "DELETE FROM Absences WHERE nom = '$nom' AND prenom = '$prenom' AND date_abs = '$date'";
 
         try {
             $abs = $this->executeRequest($raison)->fetch(PDO::FETCH_NUM);
@@ -133,10 +133,10 @@ class PlayerModel extends Model {
         return $req;
     }
 
-    // Gestion des matchs
+    // Gestion des équipes
 
     public function newTeam($equipe, $categorie) {
-        $sql = "INSERT INTO Equipes VALUES ('$equipe','$categorie',0)";
+        $sql = "INSERT INTO Equipes VALUES ('$equipe','$categorie')";
 
         try {
             $this->executeRequest($sql);

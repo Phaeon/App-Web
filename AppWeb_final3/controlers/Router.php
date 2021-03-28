@@ -97,7 +97,7 @@ class Router {
 
                     if ($_POST['abs'] == "supp_abs")
                     {
-                        $this->_playCtrl->removeAbsentPlayer($joueur_abs[0], $joueur_abs[1]);
+                        $this->_playCtrl->removeAbsentPlayer($joueur_abs[0], $joueur_abs[1], $joueur_abs[2]);
                     }
 
                     $this->_connCtrl->admin();

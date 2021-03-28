@@ -200,7 +200,7 @@ echo "<script> let matchs = $tableau;</script>";
 
                 foreach($joueurs as $record)
                 {
-                    echo "<option value=\"$record[0] $record[1]\">$record[0] $record[1]</option>";
+                    echo "<option value=\"$record[0] $record[1] $record[4]\">$record[0] $record[1] - $record[2] - $record[4]</option>";
                 }
 
                 ?>	
