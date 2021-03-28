@@ -48,7 +48,7 @@ Tout comme le visiteur, l'entraîneur a accès aux convocations publiées ainsi 
 
 Tout comme le visiteur, le secrétaire a accès aux convocations publiées ainsi qu'à la barre de défilement pour les matchs. De plus, il a une barre d'onglets :
 1. Absences : identique à l'onglet Absences de l'entraîneur.
-2. Calendrier : le secrétaire peut créer de nouvelles compétitions et en retirer (sous contrainte qu'il n'y ait aucun match enregistré pour cette compétition). De plus, il peut également enregistrer un ou plusieurs matchs, respectivement via un formulaire ou un fichier csv (un fichier test matchs.csv est disponible dans le dossier de l'application afin d'ajouter 5 matchs dans la base de données). Enfin, il peut supprimer un match et voir l'ensemble des enregistrements dans le tableau récapitulatif.
+2. Calendrier : le secrétaire peut créer de nouvelles compétitions et en retirer (sous contrainte qu'il n'y ait aucun match enregistré pour cette compétition). De plus, il peut également enregistrer un ou plusieurs matchs, respectivement via un formulaire ou un fichier csv (un fichier test `matchs.csv` est disponible dans le dossier de l'application afin d'ajouter 5 matchs dans la base de données). Enfin, il peut supprimer un match et voir l'ensemble des enregistrements dans le tableau récapitulatif.
 3. Effectif : le secrétaire peut ajouter un joueur, le changer de catégorie ou en supprimer. Il peut de plus créer de nouvelles équipes ou en supprimer (sous contrainte qu'il n'y ait aucun match enregistré pour cette équipe), et voir l'ensemble des enregistrements dans les tableaux récapitulatifs.
 
 
